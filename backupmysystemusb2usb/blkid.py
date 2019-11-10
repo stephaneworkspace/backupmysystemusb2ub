@@ -4,10 +4,12 @@
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 import subprocess
+import re
 from . import const
 
 UUID = const.UUID
 DEVICE = const.DEVICE
+LABEL = const.LABEL
 
 
 class blkid:
@@ -23,8 +25,21 @@ class blkid:
         cmd = subprocess.Popen("sudo blkid", stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, shell=True)
         BLKIDOUTPUT = cmd.communicate()[0]
-        print(BLKIDOUTPUT)
-
+        array = str(BLKIDOUTPUT.decode('UTF-8')).split('\n')
+        print(array)
+        print(' ')
+        blkid_list = []
+        for i, a in enumerate(array):
+            blkid_list.append(i)
+            blkid_list[i] = {}
+            pattern = '(?<=LABEL=")([^"]*)'
+            if not re.search(pattern, a) is None:
+                for b in re.findall(pattern, a):
+                    blkid_list[i][LABEL] = b
+            else:
+                blkid_list[i][LABEL] = None
+        for b in blkid_list:
+            print(b[LABEL])
         self.source[DEVICE] = '/dev/sda/'
 
     def same_label_and_uuid(self):

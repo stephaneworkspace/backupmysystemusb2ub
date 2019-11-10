@@ -3,5 +3,6 @@
     backup one usb key to another usb with same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
-UUID = 'uuid'
 DEVICE = 'device'
+LABEL = 'label'
+UUID = 'uuid'
