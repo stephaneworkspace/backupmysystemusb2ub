@@ -23,7 +23,7 @@ class e2label:
         global DDOUTPUT
         now = datetime.now()
         dt_string = now.strftime('%Y%m%d%H%M%S')
-        print('New timestamp for master "%s"' % (self.blki.master[DEVICE],
+        print('New timestamp for master "%s"' % (self.blkid.master[DEVICE],
                                                  dt_string))
         x = 'sudo e2label %s1 "%s"'
         try:
