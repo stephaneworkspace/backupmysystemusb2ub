@@ -3,7 +3,7 @@
     backup one usb key to another usb with same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
-import subprocess
+from subprocess import subprocess, CalledProcessError
 import re
 from . import const
 
@@ -31,8 +31,12 @@ class blkid:
         Print in the console the list of available device
         """
         global BLKIDOUTPUT
-        cmd = subprocess.Popen("sudo blkid", stdout=subprocess.PIPE,
-                               stderr=subprocess.STDOUT, shell=True)
+        x = 'sudo blkid'
+        try:
+            cmd = subprocess.Popen(x, stdout=subprocess.PIPE,
+                                   stderr=subprocess.STDOUT, shell=True)
+        except CalledProcessError:
+            print('Error in sudo blkid')
         BLKIDOUTPUT = cmd.communicate()[0]
         array = str(BLKIDOUTPUT.decode('UTF-8')).split('\n')
         blkid_list = []

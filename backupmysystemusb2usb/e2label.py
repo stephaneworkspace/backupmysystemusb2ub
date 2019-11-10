@@ -4,6 +4,7 @@
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 from subprocess import subprocess, CalledProcessError
+from datetime import datetime
 from . import const
 
 UUID = const.UUID
@@ -18,10 +19,11 @@ class e2label:
         """
         Write time stamp label to master
         """
-        from datetime import datetime
+        global DDOUTPUT
         now = datetime.now()
         dt_string = now.strftime('%Y%m%d%H%M%S')
-        print('New timestamp for master "%s"' % (dt_string))
+        print('New timestamp for master "%s"' % (self.blki.master[DEVICE],
+                                                 dt_string))
         x = 'sudo e2label %s1 "%s"'
         try:
             cmd = subprocess.Popen(x % (self.blkid.master[DEVICE], dt_string))
@@ -29,4 +31,5 @@ class e2label:
             print(DDOUTPUT)
         except CalledProcessError:
             print('Error in sudo e2label')
-            print('Command: %s' % (x))
+            xx = x % (self.blkid.master[DEVICE], dt_string)
+            print('Command: %s' % (xx))

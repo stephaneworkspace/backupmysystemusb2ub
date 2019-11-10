@@ -28,7 +28,8 @@ class dd:
             print(DDOUTPUT1)
         except CalledProcessError:
             print('Error in dd (Destroy disk ?) in the copy of master to img')
-            print('Command: %s' % (x))
+            xx = x % (self.blkid.master[DEVICE], self.img_path)
+            print('Command: %s' % (xx))
 
     def copy_img_to_slave(self):
         """
@@ -43,4 +44,5 @@ class dd:
             print(DDOUTPUT2)
         except CalledProcessError:
             print('Error in dd (Destroy disk ?) in the copy of img to slave')
-            print('Command: %s' % (x))
+            xx = x % (self.img_path, self.blkid.slave[DEVICE])
+            print('Command: %s' % (xx))
