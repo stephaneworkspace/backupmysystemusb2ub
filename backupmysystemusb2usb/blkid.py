@@ -67,6 +67,8 @@ class blkid:
                     j = len(blkid_l_g[i]) + 1
                     blkid_l_g[i][j] = {}
                     blkid_l_g[i][j][PARTITION] = b[PARTITION]
+                    blkid_l_g[i][j][UUID] = b[UUID]
+                    blkid_l_g[i][j][LABEL] = b[LABEL]
                     continue
             i += 1
             blkid_l_g.append(i)
@@ -74,6 +76,8 @@ class blkid:
             blkid_l_g[i][DEVICE] = b[DEVICE]
             blkid_l_g[i][0] = {}
             blkid_l_g[i][0][PARTITION] = b[PARTITION]
+            blkid_l_g[i][0][UUID] = b[UUID]
+            blkid_l_g[i][0][LABEL] = b[LABEL]
 
         for b in blkid_l_g:
             print(b)

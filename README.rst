@@ -24,3 +24,8 @@ To install the latest developpement version run the following command:
    git clone https://github.com/stephaneworkspace/backupmystemusb2usb
    cd backupmystemusb2usb
    python3 setup.py install
+
+Set a label
+-----------
+
+.. code-bloc:: bash
