@@ -3,7 +3,8 @@
     backup one usb key to another usb with same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
-from subprocess import subprocess, CalledProcessError
+import subprocess
+from subprocess import CalledProcessError
 from . import const
 
 UUID = const.UUID
