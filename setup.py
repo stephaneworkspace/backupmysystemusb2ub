@@ -30,8 +30,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Natural Language :: English',
-        'License :: OSI Approved :: GNU General Public License v3 or later ' /
-        + '(GPLv3+)',
+        'License :: OSI Approved :: GNU General Public License v3 or later',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.7',
