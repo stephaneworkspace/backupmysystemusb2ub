@@ -1,3 +1,28 @@
+# #############################################################################
+# This software is a part of backupmystemusb2usb and its functionality is to 
+# backup one usb key to another usb with same sapce disk
+# Author: Stéphane Bressani <s.bressani@bluewin.ch>
+#
+# This is the config file. After the first operation this file is writed and
+# the UUID 1 Master and Slave is the same. (Because is a total copy of the usb
+# key). A label with a timestamp is writed for reconized the master and the
+# slave.
+#
+# For get the info for the first time, tap in your shell:
+# 
+# sudo blkid 
+#
+# and find your two usb key
+#
+# Be carful, this is a copy total of the usb key. If your linux on usb key
+# auto-boot is 128GB, the img file generated is 128GB. You may have disk free
+# space in your Temp_img
+#
+# And not forgot to create path (no need of touch the *.img)
+#
+# After the operation the img file is not delete (for rescue security). But at
+# the moment of backup, this file is deleted.
+# ############################################################################
 UUID_1_Master: 790d1fbb-96ed-46c3-868d-08e05e223fa7
-UUID_2_Master: 790d1fbb-96ed-46c3-868d-08e05e223fa7
+UUID_1_Slave: 790d1fbb-96ed-46c3-868d-08e05e223fa7
 Temp_img: /home/stephane/Temp/Linux.img

@@ -15,7 +15,7 @@ def read(*paths):
 
 setup(
     name='backupmysytemusb2usb',
-    version='0.0.1',
+    version='0.0.3',
     description='Backup a usb key to another usb key with same space disk',
     long_descriptiob=(read('README.rst') + '\n\n'),
     url='git@github.com:stephaneworkspace/backupmysystemusb2usb.git',

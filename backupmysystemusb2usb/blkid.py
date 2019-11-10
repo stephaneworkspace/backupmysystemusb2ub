@@ -14,21 +14,27 @@ LABEL = const.LABEL
 
 
 class blkid:
-    def __init__(self, uuid_source, uuid_copy):
-        self.source = {}
-        self.copy = {}
-        self.source[UUID] = uuid_source
-        self.copy[UUID] = uuid_copy
+    def __init__(self, uuid_1_master, uuid_1_slave):
+        self.master = {}
+        self.slave = {}
+        self.master[UUID] = uuid_1_master
+        self.slave[UUID] = uuid_1_slave
         self.__compute()
 
     def __compute(self):
+        """
+        Execute:
+            sudo blkid
+        And create a dict, and another one with 2 dimension, and another one
+        with the list of detected device
+
+        Print in the console the list of available device
+        """
         global BLKIDOUTPUT
         cmd = subprocess.Popen("sudo blkid", stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, shell=True)
         BLKIDOUTPUT = cmd.communicate()[0]
         array = str(BLKIDOUTPUT.decode('UTF-8')).split('\n')
-        print(array)
-        print(' ')
         blkid_list = []
         for i, a in enumerate(array):
             # Create dict only if device detected
@@ -58,7 +64,7 @@ class blkid:
                     blkid_list[i][LABEL] = f
             else:
                 blkid_list[i][LABEL] = None
-
+        # Array 2 dimenssion with dict
         blkid_l_g = []
         i = -1
         for b in blkid_list:
@@ -78,9 +84,33 @@ class blkid:
             blkid_l_g[i][0][PARTITION] = b[PARTITION]
             blkid_l_g[i][0][UUID] = b[UUID]
             blkid_l_g[i][0][LABEL] = b[LABEL]
-
+        print('')
+        print('Device list :')
         for b in blkid_l_g:
             print(b)
+        print('')
+        # Remove no UUID match on first number of UUID array (occurs 0 in py,
+        # or occurs 1 in the terminal with sudo blkid)
+        i = 0
+        blkid_match = []
+        for b in blkid_l_g:
+            if b[0][UUID] == self.master[UUID] or \
+               b[0][UUID] == self.slave[UUID]:
+                blkid_match.append(i)
+                blkid_match[i] = {}
+                blkid_match[i][UUID] = b[0][UUID]
+                blkid_match[i][LABEL] = b[0][LABEL]
+                i += 1
+        print('Device list match with config (count = %s):' % (i))
+        for b in blkid_match:
+            print(b)
+        print('')
+        try:
+            if i != 2:
+                raise Exception(const.ERR_COUNT)
+        except Exception as error:
+            print(error)
+            print('No operation if the count is not = 2 (count = %s)' % (i))
 
     def same_label_and_uuid(self):
         return False
