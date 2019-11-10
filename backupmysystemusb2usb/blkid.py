@@ -30,17 +30,30 @@ class blkid:
         print(' ')
         blkid_list = []
         for i, a in enumerate(array):
-            blkid_list.append(i)
-            blkid_list[i] = {}
+            # Create dict only if device detected
+            pattern = '\\/dev\\/sd([a-z]+)'
+            if not re.search(pattern, a) is None:
+                for f in re.findall(pattern, a):
+                    blkid_list.append(i)
+                    blkid_list[i] = {}
+                    blkid_list[i][DEVICE] = '/dev/sd' + f
+            else:
+                continue
+            pattern = '(?<= UUID=")([^"]*)'
+            if not re.search(pattern, a) is None:
+                for f in re.findall(pattern, a):
+                    blkid_list[i][UUID] = f
+            else:
+                blkid_list[i][UUID] = None
             pattern = '(?<=LABEL=")([^"]*)'
             if not re.search(pattern, a) is None:
-                for b in re.findall(pattern, a):
-                    blkid_list[i][LABEL] = b
+                for f in re.findall(pattern, a):
+                    blkid_list[i][LABEL] = f
             else:
                 blkid_list[i][LABEL] = None
+
         for b in blkid_list:
-            print(b[LABEL])
-        self.source[DEVICE] = '/dev/sda/'
+            print(b)
 
     def same_label_and_uuid(self):
         return False

@@ -5,4 +5,4 @@
 """
 DEVICE = 'device'
 LABEL = 'label'
-UUID = 'uuid'
+UUID = 'UUID'

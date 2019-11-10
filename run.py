@@ -16,4 +16,3 @@ b = blkid(UUID, UUID)
 if b.same_label_and_uuid():
     print('Same label and UUID -> No copy is posible')
     exit()
-print('continue')
