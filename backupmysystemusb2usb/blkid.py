@@ -9,6 +9,7 @@ from . import const
 
 UUID = const.UUID
 DEVICE = const.DEVICE
+PARTITION = const.PARTITION
 LABEL = const.LABEL
 
 
@@ -39,6 +40,12 @@ class blkid:
                     blkid_list[i][DEVICE] = '/dev/sd' + f
             else:
                 continue
+            pattern = '\\/dev\\/sd([a-z][0-9]+)'
+            if not re.search(pattern, a) is None:
+                for f in re.findall(pattern, a):
+                    blkid_list[i][PARTITION] = '/dev/sd' + f
+            else:
+                blkid_list[i][PARTITION] = None
             pattern = '(?<= UUID=")([^"]*)'
             if not re.search(pattern, a) is None:
                 for f in re.findall(pattern, a):
@@ -52,7 +59,23 @@ class blkid:
             else:
                 blkid_list[i][LABEL] = None
 
+        blkid_l_g = []
+        i = -1
         for b in blkid_list:
+            if i > 0:
+                if blkid_l_g[i][DEVICE] == b[DEVICE]:
+                    j = len(blkid_l_g[i]) + 1
+                    blkid_l_g[i][j] = {}
+                    blkid_l_g[i][j][PARTITION] = b[PARTITION]
+                    continue
+            i += 1
+            blkid_l_g.append(i)
+            blkid_l_g[i] = {}
+            blkid_l_g[i][DEVICE] = b[DEVICE]
+            blkid_l_g[i][0] = {}
+            blkid_l_g[i][0][PARTITION] = b[PARTITION]
+
+        for b in blkid_l_g:
             print(b)
 
     def same_label_and_uuid(self):

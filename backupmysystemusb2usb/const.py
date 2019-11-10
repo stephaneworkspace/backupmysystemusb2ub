@@ -4,5 +4,6 @@
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 DEVICE = 'device'
+PARTITION = 'partiton'
 LABEL = 'label'
 UUID = 'UUID'
