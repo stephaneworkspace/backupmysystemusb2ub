@@ -48,8 +48,12 @@ class dd:
         try:
             # cmd = subprocess.Popen(x % (self.img_path,
             # self.blkid.slave[DEVICE]))
-            cmd_list = ['sudo', 'dd', 'if=' + self.img.img_path, 'of=' +
-                        self.blkid.slave[DEVICE], 'bs=4M']
+            cmd_list = [
+                'sudo', 
+                'dd', 
+                'if=' + self.img_path, 
+                'of=' + self.blkid.slave[DEVICE], 
+                'bs=4M']
             cmd = subprocess.Popen(cmd_list)
             cmd.wait()
             DDOUTPUT2 = cmd.communicate()[0]
