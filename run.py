@@ -31,6 +31,7 @@ try:
     b = blkid(UUID_1_MASTER, UUID_1_SLAVE)
 except Exception:
     exit()
-if b.same_label_and_uuid():
-    print('Same label and UUID -> No copy is posible')
-    exit()
+print('')
+print('Master: %s' % (b.master))
+print('Slave: %s' % (b.slave))
+print('')

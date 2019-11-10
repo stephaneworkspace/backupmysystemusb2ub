@@ -11,4 +11,11 @@ UUID = 'UUID'
 YML_UUID_1_MASTER = 'UUID_1_Master'
 YML_UUID_1_SLAVE = 'UUID_1_Slave'
 
+YYYYMMDDHHMMSS = 'YYYYMMddHHMMSS'
+
 ERR_COUNT = 'Count error'
+ERR_RENAME1 = 'rename with `sudo e2label /dev/sd_1 "YYYYMMddHHMMSS"`'
+ERR_RENAME2 = 'with slave in past and master in presant'
+ERR_SAME_LABEL = 'Same label, %s %s' % (ERR_RENAME1, ERR_RENAME2)
+ERR_UNKNOW_LABEL = 'The label on device is unknow, %s %s' % (ERR_RENAME1,
+                                                             ERR_RENAME2)

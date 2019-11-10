@@ -98,6 +98,7 @@ class blkid:
                b[0][UUID] == self.slave[UUID]:
                 blkid_match.append(i)
                 blkid_match[i] = {}
+                blkid_match[i][DEVICE] = b[DEVICE]
                 blkid_match[i][UUID] = b[0][UUID]
                 blkid_match[i][LABEL] = b[0][LABEL]
                 i += 1
@@ -111,6 +112,31 @@ class blkid:
         except Exception as error:
             print(error)
             print('No operation if the count is not = 2 (count = %s)' % (i))
-
-    def same_label_and_uuid(self):
-        return False
+        # Detect master and slave
+        try:
+            if self.master[UUID] == self.slave[UUID]:
+                if blkid_match[0][LABEL] == blkid_match[1][LABEL]:
+                    raise Exception(const.ERR_SAME_LABEL)
+                for i in range(0, 1):
+                    if len(blkid_match[i][LABEL]) != len(const.YYYYMMDDHHMMSS):
+                        raise Exception(const.ERR_UNKNOW_LABEL)
+                if int(blkid_match[0][LABEL]) > int(blkid_match[1][LABEL]):
+                    self.master[DEVICE] = blkid_match[0][DEVICE]
+                    self.master[LABEL] = blkid_match[0][LABEL]
+                    self.slave[DEVICE] = blkid_match[1][DEVICE]
+                    self.slave[LABEL] = blkid_match[1][LABEL]
+                else:
+                    self.master[DEVICE] = blkid_match[1][DEVICE]
+                    self.master[LABEL] = blkid_match[1][LABEL]
+                    self.slave[DEVICE] = blkid_match[0][DEVICE]
+                    self.slave[LABEL] = blkid_match[0][LABEL]
+            else:
+                for i in range(0, 1):
+                    if self.master[UUID] == blkid_match[i][UUID]:
+                        self.master[DEVICE] = blkid_match[i][DEVICE]
+                        self.master[LABEL] = blkid_match[i][LABEL]
+                    if self.slave[UUID] == blkid_match[i][UUID]:
+                        self.slave[DEVICE] = blkid_match[i][DEVICE]
+                        self.slave[LABEL] = blkid_match[i][LABEL]
+        except Exception as error:
+            print(error)
