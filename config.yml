@@ -18,7 +18,7 @@
 # auto-boot is 128GB, the img file generated is 128GB. You may have disk free
 # space in your Temp_img
 #
-# And not forgot to create path (no need of touch the *.img)
+# And not forgot to create path (no need of touch the *.img or *.log)
 #
 # After the operation the img file is not delete (for rescue security). But at
 # the moment of backup, this file is deleted.
@@ -26,3 +26,4 @@
 UUID_1_Master: 790d1fbb-96ed-46c3-868d-08e05e223fa7
 UUID_1_Slave: 790d1fbb-96ed-46c3-868d-08e05e223fa7
 Temp_img: /home/stephane/Temp/Linux.img
+Temp_log: /home/stephane/Temp/Output.log

@@ -15,10 +15,10 @@ def read(*paths):
 
 setup(
     name='backupmysytemusb2usb',
-    version='0.0.3',
+    version='0.0.4',
     description='Backup a usb key to another usb key with same space disk',
     long_descriptiob=(read('README.rst') + '\n\n'),
-    url='git@github.com:stephaneworkspace/backupmysystemusb2usb.git',
+    url='https://github.com/stephaneworkspace/backupmysystemusb2usb.git',
     author='Stéphane Bressani',
     author_email='s.bressani@bluewin.ch',
     licence='GPLv3+',

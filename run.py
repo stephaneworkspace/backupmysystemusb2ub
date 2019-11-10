@@ -46,12 +46,12 @@ print('Copy master to img...')
 print('This take a moment (no refresh in console)')
 print('Check the size of %s output file' % (bs.data[const.YML_TEMP_IMG]))
 try:
-    d = dd(b, bs.data[const.YML_TEMP_IMG])
+    d = dd(b, bs.data[const.YML_TEMP_IMG], bs.data[const.YML_TEMP_LOG])
     d.copy_master_to_img()
     print('')
     print('Copy succefull !')
     print('')
-    print('Copy to slave device now (this take the same time as before...')
+    print('Copy to slave device now (this take the same time as before...)')
     d.copy_img_to_slave()
     print('')
     print('Writing label on master upper than slave with timespan')
@@ -60,6 +60,8 @@ try:
     print('')
     u = unmount(b)
     print('All ok')
+except IOError as error:
+    print(error)
 except CalledProcessError as error:
     print(error)
     exit()
