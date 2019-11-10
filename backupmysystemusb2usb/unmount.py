@@ -26,12 +26,18 @@ class unmount:
         x = 'sudo unmount %s'
         try:
             xx = x % (self.blkid.master[DEVICE])
-            cmd = subprocess.Popen(x % (self.blkid.master[DEVICE]))
+            # cmd = subprocess.Popen(x % (self.blkid.master[DEVICE]))
+            cmd_list = ['sudo', 'unmount', self.blkid.master[DEVICE]]
+            cmd = subprocess.Popen(cmd_list)
+            cmd.wait()
             DDOUTPUT1 = cmd.communicate()[0]
             print(xx)
             print(DDOUTPUT1)
             xx = x % (self.blkid.slave[DEVICE])
-            cmd = subprocess.Popen(x % (self.blkid.slave[DEVICE]))
+            # cmd = subprocess.Popen(x % (self.blkid.slave[DEVICE]))
+            cmd_list = ['sudo', 'unmount', self.blkid.slave[DEVICE]]
+            cmd = subprocess.Popen(cmd_list)
+            cmd.wait()
             DDOUTPUT2 = cmd.communicate()[0]
             print(xx)
             print(DDOUTPUT2)

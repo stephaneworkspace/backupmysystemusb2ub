@@ -27,7 +27,13 @@ class e2label:
                                                  dt_string))
         x = 'sudo e2label %s1 "%s"'
         try:
+            """
             cmd = subprocess.Popen(x % (self.blkid.master[DEVICE], dt_string))
+            """
+            cmd_list = ['sudo', 'e2label', self.blkid.master[DEVICE],
+                        dt_string]
+            cmd = subprocess.Popen(cmd_list)
+            cmd.wait()
             DDOUTPUT = cmd.communicate()[0]
             print(DDOUTPUT)
         except CalledProcessError:
