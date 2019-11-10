@@ -126,22 +126,22 @@ class blkid:
                     if len(blkid_match[i][LABEL]) != len(const.YYYYMMDDHHMMSS):
                         raise Exception(const.ERR_UNKNOW_LABEL)
                 if int(blkid_match[0][LABEL]) > int(blkid_match[1][LABEL]):
-                    self.master[DEVICE] = blkid_match[0][DEVICE]
+                    self.master[DEVICE] = blkid_match[0][DEVICE] + '1'
                     self.master[LABEL] = blkid_match[0][LABEL]
-                    self.slave[DEVICE] = blkid_match[1][DEVICE]
+                    self.slave[DEVICE] = blkid_match[1][DEVICE] + '1'
                     self.slave[LABEL] = blkid_match[1][LABEL]
                 else:
-                    self.master[DEVICE] = blkid_match[1][DEVICE]
+                    self.master[DEVICE] = blkid_match[1][DEVICE] + '1'
                     self.master[LABEL] = blkid_match[1][LABEL]
-                    self.slave[DEVICE] = blkid_match[0][DEVICE]
+                    self.slave[DEVICE] = blkid_match[0][DEVICE] + '1'
                     self.slave[LABEL] = blkid_match[0][LABEL]
             else:
                 for i in range(0, 1):
                     if self.master[UUID] == blkid_match[i][UUID]:
-                        self.master[DEVICE] = blkid_match[i][DEVICE]
+                        self.master[DEVICE] = blkid_match[i][DEVICE] + '1'
                         self.master[LABEL] = blkid_match[i][LABEL]
                     if self.slave[UUID] == blkid_match[i][UUID]:
-                        self.slave[DEVICE] = blkid_match[i][DEVICE]
+                        self.slave[DEVICE] = blkid_match[i][DEVICE] + '1'
                         self.slave[LABEL] = blkid_match[i][LABEL]
         except Exception as error:
             print(error)
