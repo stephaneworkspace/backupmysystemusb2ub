@@ -17,4 +17,4 @@ class kill_dd:
             cmd = Popen(cmd_list)
             cmd.wait()
         except CalledProcessError:
-            print('Error in sudo killall -9 dd')
+            print(ERR_KILL_DD)

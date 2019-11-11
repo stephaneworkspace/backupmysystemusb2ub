@@ -34,7 +34,7 @@ class blkid:
         try:
             cmd = Popen(x, stdout=PIPE, stderr=STDOUT, shell=True)
         except CalledProcessError:
-            print('Error in sudo blkid')
+            print(ERR_BLKID_COMPUTE)
         BLKIDOUTPUT = cmd.communicate()[0]
         array = str(BLKIDOUTPUT.decode('UTF-8')).split('\n')
         blkid_list = []
@@ -87,7 +87,7 @@ class blkid:
             blkid_l_g[i][0][UUID] = b[UUID]
             blkid_l_g[i][0][LABEL] = b[LABEL]
         print('')
-        print('Device(s) list :')
+        print(TTY_BLKID_DEVICE_LIST)
         for b in blkid_l_g:
             print(b)
         print('')
@@ -105,7 +105,7 @@ class blkid:
                 blkid_match[i][UUID] = b[0][UUID]
                 blkid_match[i][LABEL] = b[0][LABEL]
                 i += 1
-        print('Device(s) list match with config (count = %s):' % (i))
+        print(TTY_BLKID_DEVICE_LIST_MATCH % (i))
         for b in blkid_match:
             print(b)
         print('')
@@ -114,7 +114,7 @@ class blkid:
                 raise Exception(const.ERR_COUNT)
         except Exception as error:
             print(error)
-            print('No operation if the count is not = 2 (count = %s)' % (i))
+            print(ERR_BLKID_NO_OPERATION_IF % (i))
         # Detect master and slave
         try:
             if self.master[UUID] == self.slave[UUID]:

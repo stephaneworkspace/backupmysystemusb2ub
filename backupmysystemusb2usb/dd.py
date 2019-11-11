@@ -32,9 +32,9 @@ class dd:
                         + self.img_path, 'bs=4M']
             self.__cmd(cmd_list)
         except CalledProcessError:
-            print('Error in dd (Destroy disk ?) in the copy of master to img')
+            print(const.ERR_DD_CMTI)
             xx = x % (self.blkid.master[DEVICE], self.img_path)
-            print('Command: %s' % (xx))
+            print(const.ERR_CMD % (xx))
 
     def copy_img_to_slave(self):
         """
@@ -46,9 +46,9 @@ class dd:
                         self.blkid.slave[DEVICE], 'bs=4M']
             self.__cmd(cmd_list)
         except CalledProcessError:
-            print('Error in dd (Destroy disk ?) in the copy of img to slave')
+            print(const.ERR_DD_CITS)
             xx = x % (self.img_path, self.blkid.slave[DEVICE])
-            print('Command: %s' % (xx))
+            print(const.ERR_CMD  % (xx))
 
     def __cmd(self, cmd_list):
         try:
@@ -66,4 +66,4 @@ class dd:
                     break
             print(cmd.stderr.read())
         except CalledProcessError:
-            print('Error in dd')
+            print(ERR_CMD_DD)
