@@ -17,7 +17,7 @@ UUID = const.UUID
 DEVICE = const.DEVICE
 ROOT = 'root'
 REFRESH = ['pkill', '--uid', ROOT, '--signal', 'SIGUSR1', '^dd$']
-REFRESH_SEC = 5
+REFRESH_SEC = 30
 
 
 class dd:

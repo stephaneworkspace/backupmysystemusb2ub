@@ -13,7 +13,6 @@ from backupmysystemusb2usb.unmount import unmount
 from backupmysystemusb2usb import const
 
 print('Backup Usb To Usb')
-print('UUID : %s' % (UUID))
 
 print('Try to open config.yml')
 bs = backup_system()
@@ -46,12 +45,14 @@ try:
         k.run()
         print('')
     print('Copy master to img...')
+    print('')
     d = dd(b, bs.data[const.YML_TEMP_IMG])
     d.copy_master_to_img()
     print('')
     print('Copy succefull !')
     print('')
-    print('Copy to slave device now (this take the same time as before...)')
+    print('Copy img to slave device now')
+    print('')
     d.copy_img_to_slave()
     print('')
     print('Writing label on master upper than slave with timespan')
