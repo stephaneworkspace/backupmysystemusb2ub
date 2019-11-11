@@ -18,28 +18,18 @@ class umount:
         """
         Umount disks
         """
-        global DDOUTPUT1
-        global DDOUTPUT2
         print('umount %s and %s' % (self.blkid.master[DEVICE],
                                     self.blkid.slave[DEVICE]))
         x = 'sudo umount %s'
         try:
             xx = x % (self.blkid.master[DEVICE])
-            # cmd = subprocess.Popen(x % (self.blkid.master[DEVICE]))
             cmd_list = ['sudo', 'umount', self.blkid.master[DEVICE]]
             cmd = Popen(cmd_list)
             cmd.wait()
-            DDOUTPUT1 = cmd.communicate()[0]
-            print(xx)
-            print(DDOUTPUT1)
             xx = x % (self.blkid.slave[DEVICE])
-            # cmd = subprocess.Popen(x % (self.blkid.slave[DEVICE]))
             cmd_list = ['sudo', 'umount', self.blkid.slave[DEVICE]]
             cmd = Popen(cmd_list)
             cmd.wait()
-            DDOUTPUT2 = cmd.communicate()[0]
-            print(xx)
-            print(DDOUTPUT2)
         except CalledProcessError:
             print('Error in sudo umount')
             print('Command: %s' % (xx))
