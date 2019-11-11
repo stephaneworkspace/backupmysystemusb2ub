@@ -8,14 +8,13 @@ import time
 from backupmysystemusb2usb.backup_system import backup_system
 from backupmysystemusb2usb import const
 
-FILE_NAME = '/home/stephane/Temp/output.log'
 REFRESH_SEC = .1
 
 print(const.TTY_U_1)
 print('')
 print(const.TTY_U_2)
 print(const.TTY_U_3)
-print(const.TTY_U_3)
+print(const.TTY_U_4)
 print('')
 
 print(const.TTY_YML_TRY)
