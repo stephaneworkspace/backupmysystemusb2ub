@@ -3,9 +3,8 @@
     backup one usb key to another usb with same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
-import subprocess
-from subprocess import CalledProcessError
 import re
+from subprocess import Popen, PIPE, STDOUT, CalledProcessError
 from . import const
 
 UUID = const.UUID
@@ -34,8 +33,7 @@ class blkid:
         global BLKIDOUTPUT
         x = 'sudo blkid'
         try:
-            cmd = subprocess.Popen(x, stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT, shell=True)
+            cmd = Popen(x, stdout=PIPE, stderr=STDOUT, shell=True)
         except CalledProcessError:
             print('Error in sudo blkid')
         BLKIDOUTPUT = cmd.communicate()[0]
@@ -43,7 +41,7 @@ class blkid:
         blkid_list = []
         for i, a in enumerate(array):
             # Create dict only if device detected
-            pattern = '\\/dev\\/sd([a-z]+)'
+            pattern = r'\/dev\/sd([a-z]+)'
             if not re.search(pattern, a) is None:
                 for f in re.findall(pattern, a):
                     blkid_list.append(i)
@@ -51,7 +49,7 @@ class blkid:
                     blkid_list[i][DEVICE] = '/dev/sd' + f
             else:
                 continue
-            pattern = '\\/dev\\/sd([a-z][0-9]+)'
+            pattern = r'\/dev\/sd([a-z][0-9]+)'
             if not re.search(pattern, a) is None:
                 for f in re.findall(pattern, a):
                     blkid_list[i][PARTITION] = '/dev/sd' + f

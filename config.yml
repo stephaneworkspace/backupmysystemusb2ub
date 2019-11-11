@@ -22,8 +22,12 @@
 #
 # After the operation the img file is not delete (for rescue security). But at
 # the moment of backup, this file is deleted.
+#
+# Kill_dd: True or False call "sudo killall -9 dd" for kill all processus dd
+# Because, if you make a ctrl + c of this long execution time of this program,
+# sometime dd continue in backgroup
 # ############################################################################
 UUID_1_Master: 790d1fbb-96ed-46c3-868d-08e05e223fa7
 UUID_1_Slave: 790d1fbb-96ed-46c3-868d-08e05e223fa7
 Temp_img: /home/stephane/Temp/Linux.img
-Temp_log: /home/stephane/Temp/Output.log
+Kill_dd: True

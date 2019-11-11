@@ -3,8 +3,7 @@
     backup one usb key to another usb with same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
-import subprocess
-from subprocess import CalledProcessError
+from subprocess import Popen, CalledProcessError
 from datetime import datetime
 from . import const
 
@@ -32,7 +31,7 @@ class e2label:
             """
             cmd_list = ['sudo', 'e2label', self.blkid.master[DEVICE],
                         dt_string]
-            cmd = subprocess.Popen(cmd_list)
+            cmd = Popen(cmd_list)
             cmd.wait()
             DDOUTPUT = cmd.communicate()[0]
             print(DDOUTPUT)

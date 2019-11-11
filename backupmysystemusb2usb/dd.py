@@ -6,43 +6,33 @@
 https://stackoverflow.com/questions/7581710/python-subprocess-dd-and-stdout ->
 to do
 """
-import subprocess
-from subprocess import CalledProcessError
+from __future__ import print_function
+import re
+import signal
+import time
+from subprocess import Popen, PIPE, CalledProcessError
 from . import const
 
 UUID = const.UUID
 DEVICE = const.DEVICE
+ROOT = 'root'
+REFRESH = ['pkill', '--uid', ROOT, '--signal', 'SIGUSR1', '^dd$']
 
 
 class dd:
-    def __init__(self, blkid, img_path, temp_log):
+    def __init__(self, blkid, img_path):
         self.blkid = blkid
         self.img_path = img_path
-        self.temp_log = temp_log
 
     def copy_master_to_img(self):
         """
         Copy master to img
         """
-        global DDOUTPUT1
-        try:
-            out_fd = open(self.temp_log, 'w')
-        except IOError:
-            print('Unable to write temp file')
         x = 'sudo dd if=%s of=%s bs=4M'
         try:
-            # cmd = subprocess.Popen(x % (self.blkid.master[DEVICE],
-            # self.img_path))
             cmd_list = ['sudo', 'dd', 'if=' + self.blkid.master[DEVICE], 'of='
                         + self.img_path, 'bs=4M']
-            cmd = subprocess.Popen(cmd_list, stdout=out_fd, stderr=out_fd)
-            cmd.wait()
-            DDOUTPUT1 = cmd.communicate()[0]
-            print(DDOUTPUT1)
-            try:
-                out_fd.close()
-            except IOError:
-                print('Unable to close file')
+            self.__cmd(cmd_list)
         except CalledProcessError:
             print('Error in dd (Destroy disk ?) in the copy of master to img')
             xx = x % (self.blkid.master[DEVICE], self.img_path)
@@ -52,26 +42,30 @@ class dd:
         """
         Copy img to slave
         """
-        global DDOUTPUT2
-        try:
-            out_fd = open(self.temp_log, 'w')
-        except IOError:
-            print('Unable to write temp file')
         x = 'sudo dd if=%s of=%s bs=4m'
         try:
-            # cmd = subprocess.Popen(x % (self.img_path,
-            # self.blkid.slave[DEVICE]))
             cmd_list = ['sudo', 'dd', 'if=' + self.img_path, 'of=' +
                         self.blkid.slave[DEVICE], 'bs=4M']
-            cmd = subprocess.Popen(cmd_list, stdout=out_fd, stderr=out_fd)
-            cmd.wait()
-            DDOUTPUT2 = cmd.communicate()[0]
-            print(DDOUTPUT2)
-            try:
-                out_fd.close()
-            except IOError:
-                print('Unable to close file')
+            self.__cmd(cmd_list)
         except CalledProcessError:
             print('Error in dd (Destroy disk ?) in the copy of img to slave')
             xx = x % (self.img_path, self.blkid.slave[DEVICE])
             print('Command: %s' % (xx))
+
+    def __cmd(self, cmd_list):
+        try:
+            cmd = Popen(cmd_list, stderr=PIPE)
+            while cmd.poll() is None:
+                time.sleep(.3)
+                Popen(REFRESH)
+                cmd.send_signal(signal.SIGUSR1)
+                while 1:
+                    output = bytes(cmd.stderr.readline()).decode('utf-8')
+                    for o in output.split('\r'):
+                        pattern = r'\b(?:MB|GB|TB)\b'
+                        if re.search(pattern, o):
+                            print(o, end='')
+                    break
+            print(cmd.stderr.read())
+        except CalledProcessError:
+            print('Error in dd')

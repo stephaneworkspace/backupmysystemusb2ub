@@ -9,6 +9,7 @@ from backupmysystemusb2usb.backup_system import backup_system
 from backupmysystemusb2usb.blkid import blkid
 from backupmysystemusb2usb.dd import dd
 from backupmysystemusb2usb.e2label import e2label
+from backupmysystemusb2usb.kill_dd import kill_dd
 from backupmysystemusb2usb.unmount import unmount
 from backupmysystemusb2usb import const
 
@@ -43,10 +44,11 @@ print('Master: %s' % (b.master))
 print('Slave: %s' % (b.slave))
 print('')
 print('Copy master to img...')
-print('This take a moment (no refresh in console)')
-print('Check the size of %s output file' % (bs.data[const.YML_TEMP_IMG]))
 try:
-    d = dd(b, bs.data[const.YML_TEMP_IMG], bs.data[const.YML_TEMP_LOG])
+    if bs.data[const.YML_KILL_DD]:
+        k = kill_dd()
+        k.run()
+    d = dd(b, bs.data[const.YML_TEMP_IMG])
     d.copy_master_to_img()
     print('')
     print('Copy succefull !')
@@ -62,6 +64,7 @@ try:
     print('All ok')
 except IOError as error:
     print(error)
+    exit()
 except CalledProcessError as error:
     print(error)
     exit()
