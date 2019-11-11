@@ -14,6 +14,7 @@ from backupmysystemusb2usb import const
 
 print(const.TTY_INTRO)
 print('')
+
 print(const.TTY_YML_TRY)
 bs = backup_system()
 if bs.status is False:
@@ -25,6 +26,7 @@ print('')
 print(const.TTY_YML_VARIABLES_USED)
 for key in bs.data:
     print(const.TTY_YML_VARIABLE % (key, bs.data[key]))
+
 # If same UUID and same label, failed
 UUID_1_MASTER = bs.data[const.YML_UUID_1_MASTER]
 UUID_1_SLAVE = bs.data[const.YML_UUID_1_SLAVE]
@@ -39,6 +41,7 @@ print('')
 print(const.TTY_MASTER % (b.master))
 print(const.TTY_SLAVE % (b.slave))
 print('')
+
 try:
     u = umount(b)
     if bs.data[const.YML_KILL_DD]:
