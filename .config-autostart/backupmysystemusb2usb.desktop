@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Application
 Exec gnome-terminal --full-screen --hide-menubar --command "~/Code/Python/backupmysystemusb2usb/run_user.sh"
+NoDisplay=false
 Hidden=false
 X-GNOME-Autostart-enabled=true
 Name=Backup my system usb to usb
