@@ -40,6 +40,7 @@ print('Master: %s' % (b.master))
 print('Slave: %s' % (b.slave))
 print('')
 try:
+    u = unmount(b)
     if bs.data[const.YML_KILL_DD]:
         k = kill_dd()
         k.run()
