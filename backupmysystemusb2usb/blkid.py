@@ -115,6 +115,7 @@ class blkid:
         except Exception as error:
             print(error)
             print(const.ERR_BLKID_NO_OPERATION_IF % (i))
+            exit()
         # Detect master and slave
         try:
             if self.master[UUID] == self.slave[UUID]:
@@ -143,3 +144,4 @@ class blkid:
                         self.slave[LABEL] = blkid_match[i][LABEL]
         except Exception as error:
             print(error)
+            exit()

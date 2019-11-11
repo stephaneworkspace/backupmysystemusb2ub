@@ -41,7 +41,7 @@ TTY_E2LABEL_WTSLTM = 'New timestamp upper than slave for master "%s"'
 TTY_UMOUNT = 'Umount %s and %s:'
 
 TTY_INTRO = 'Backup disk to another one'
-TTY_YML_TRY = 'Try to open config.ymli:'
+TTY_YML_TRY = 'Try to open config.yml:'
 TTY_YML_FAILED = 'Open failed'
 TTY_YML_SUCCESS = 'Open with success'
 TTY_YML_VARIABLES_USED = 'Variables used:'
