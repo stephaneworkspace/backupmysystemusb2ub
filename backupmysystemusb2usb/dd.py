@@ -26,6 +26,7 @@ class dd:
         """
         Copy master to img
         """
+        print(const.TTY_DD_CMTI)
         x = 'sudo dd if=%s of=%s bs=4M'
         try:
             cmd_list = ['sudo', 'dd', 'if=' + self.blkid.master[DEVICE], 'of='
@@ -40,6 +41,7 @@ class dd:
         """
         Copy img to slave
         """
+        print(const.TTY_DD_CITS)
         x = 'sudo dd if=%s of=%s bs=4m'
         try:
             cmd_list = ['sudo', 'dd', 'if=' + self.img_path, 'of=' +
@@ -64,6 +66,8 @@ class dd:
                         if re.search(pattern, o):
                             print(o, end='')
                     break
-            print(cmd.stderr.read())
+            print('')
+            print(TTY_DD_COPY_SUCCESSFULL)
+            print('')
         except CalledProcessError:
             print(ERR_CMD_DD)
