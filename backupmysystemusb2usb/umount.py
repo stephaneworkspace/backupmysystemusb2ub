@@ -9,20 +9,20 @@ from . import const
 DEVICE = const.DEVICE
 
 
-class unmount:
+class umount:
     def __init__(self, blkid):
         self.blkid = blkid
         self.__unmount()
 
-    def __unmount(self):
+    def __umount(self):
         """
-        Unmount disks
+        Umount disks
         """
         global DDOUTPUT1
         global DDOUTPUT2
-        print('unmount %s and %s' % (self.blkid.master[DEVICE],
-                                     self.blkid.slave[DEVICE]))
-        x = 'sudo unmount %s'
+        print('umount %s and %s' % (self.blkid.master[DEVICE],
+                                    self.blkid.slave[DEVICE]))
+        x = 'sudo umount %s'
         try:
             xx = x % (self.blkid.master[DEVICE])
             # cmd = subprocess.Popen(x % (self.blkid.master[DEVICE]))
@@ -41,5 +41,5 @@ class unmount:
             print(xx)
             print(DDOUTPUT2)
         except CalledProcessError:
-            print('Error in sudo e2label')
+            print('Error in sudo umount')
             print('Command: %s' % (xx))
