@@ -12,7 +12,7 @@ DEVICE = const.DEVICE
 class umount:
     def __init__(self, blkid):
         self.blkid = blkid
-        self.__unmount()
+        self.__umount()
 
     def __umount(self):
         """

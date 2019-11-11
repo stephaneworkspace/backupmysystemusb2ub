@@ -9,7 +9,7 @@ from backupmysystemusb2usb.blkid import blkid
 from backupmysystemusb2usb.dd import dd
 from backupmysystemusb2usb.e2label import e2label
 from backupmysystemusb2usb.kill_dd import kill_dd
-from backupmysystemusb2usb.unmount import unmount
+from backupmysystemusb2usb.umount import umount
 from backupmysystemusb2usb import const
 
 print('Backup Usb To Usb')
@@ -40,7 +40,7 @@ print('Master: %s' % (b.master))
 print('Slave: %s' % (b.slave))
 print('')
 try:
-    u = unmount(b)
+    u = umount(b)
     if bs.data[const.YML_KILL_DD]:
         k = kill_dd()
         k.run()
@@ -60,7 +60,7 @@ try:
     e = e2label(b)
     e.write_time_stamp_label_to_master()
     print('')
-    u = unmount(b)
+    u = umount(b)
     print('All ok')
 except IOError as error:
     print(error)
