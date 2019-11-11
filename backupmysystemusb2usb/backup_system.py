@@ -4,11 +4,12 @@
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 import yaml
+import os
 
 
 class backup_system:
     def __init__(self):
-        with open('config.yml', 'r') as stream:
+        with open(os.path.join('config.yml'), 'r') as stream:
             try:
                 self.status = True
                 self.data = yaml.safe_load(stream)
