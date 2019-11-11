@@ -29,7 +29,7 @@ class e2label:
             """
             cmd = subprocess.Popen(x % (self.blkid.master[DEVICE], dt_string))
             """
-            cmd_list = ['sudo', 'e2label', self.blkid.master[DEVICE],
+            cmd_list = ['sudo', 'e2label', self.blkid.master[DEVICE] + '1',
                         dt_string]
             cmd = Popen(cmd_list)
             cmd.wait()
