@@ -17,6 +17,7 @@ UUID = const.UUID
 DEVICE = const.DEVICE
 ROOT = 'root'
 REFRESH = ['pkill', '--uid', ROOT, '--signal', 'SIGUSR1', '^dd$']
+REFRESH_SEC = 5
 
 
 class dd:
@@ -56,7 +57,7 @@ class dd:
         try:
             cmd = Popen(cmd_list, stderr=PIPE)
             while cmd.poll() is None:
-                time.sleep(.3)
+                time.sleep(REFRESH_SEC)
                 Popen(REFRESH)
                 cmd.send_signal(signal.SIGUSR1)
                 while 1:

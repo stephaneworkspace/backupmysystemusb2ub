@@ -3,7 +3,6 @@
     backup one usb key to another usb with same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
-import sys
 from subprocess import CalledProcessError
 from backupmysystemusb2usb.backup_system import backup_system
 from backupmysystemusb2usb.blkid import blkid
@@ -12,8 +11,6 @@ from backupmysystemusb2usb.e2label import e2label
 from backupmysystemusb2usb.kill_dd import kill_dd
 from backupmysystemusb2usb.unmount import unmount
 from backupmysystemusb2usb import const
-
-UUID = sys.argv[1]
 
 print('Backup Usb To Usb')
 print('UUID : %s' % (UUID))
@@ -43,11 +40,12 @@ print('')
 print('Master: %s' % (b.master))
 print('Slave: %s' % (b.slave))
 print('')
-print('Copy master to img...')
 try:
     if bs.data[const.YML_KILL_DD]:
         k = kill_dd()
         k.run()
+        print('')
+    print('Copy master to img...')
     d = dd(b, bs.data[const.YML_TEMP_IMG])
     d.copy_master_to_img()
     print('')
