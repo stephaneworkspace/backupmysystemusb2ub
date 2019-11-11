@@ -1,6 +1,6 @@
 """
     This software is a part of backupmystemusb2usb and its functionality is to
-    backup one usb key to another usb with same sapce disk
+    backup one usb key to another usb with the same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 from subprocess import CalledProcessError
@@ -12,7 +12,7 @@ from backupmysystemusb2usb.kill_dd import kill_dd
 from backupmysystemusb2usb.umount import umount
 from backupmysystemusb2usb import const
 
-print('Backup Usb To Usb')
+print('Backup usb key to usb key')
 
 print('Try to open config.yml')
 bs = backup_system()
@@ -25,7 +25,7 @@ print('')
 print('Variables used:')
 for key in bs.data:
     print('%s: %s' % (key, bs.data[key]))
-# If same uuid and same label, failed
+# If same UUID and same label, failed
 UUID_1_MASTER = bs.data[const.YML_UUID_1_MASTER]
 UUID_1_SLAVE = bs.data[const.YML_UUID_1_SLAVE]
 try:
@@ -50,11 +50,13 @@ try:
     d = dd(b, bs.data[const.YML_TEMP_IMG])
     d.copy_master_to_img()
     print('')
-    print('Copy succefull !')
+    print('Copy successfull !')
     print('')
-    print('Copy img to slave device now')
+    print('Copy img to slave device now...')
     print('')
     d.copy_img_to_slave()
+    print('')
+    print('Copy successfull !')
     print('')
     print('Writing label on master upper than slave with timespan')
     e = e2label(b)

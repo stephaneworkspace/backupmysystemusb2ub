@@ -1,6 +1,6 @@
 """
     This software is a part of backupmystemusb2usb and its functionality is to
-    backup one usb key to another usb with same space disk
+    backup one usb key to another usb with the same space disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 import os
@@ -16,7 +16,7 @@ def read(*paths):
 setup(
     name='backupmysytemusb2usb',
     version='0.0.6',
-    description='Backup a usb key to another usb key with same space disk',
+    description='Backup a usb key to another usb key with the same space disk',
     long_descriptiob=(read('README.rst') + '\n\n'),
     url='https://github.com/stephaneworkspace/backupmysystemusb2usb.git',
     author='Stéphane Bressani',
@@ -27,7 +27,7 @@ setup(
     python_requires='>=3.7',
     zip_safe=False,
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 0 - Beta',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'License :: OSI Approved :: GNU General Public License v3 or later',
@@ -35,6 +35,6 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: Scientific/Engineering',
+        'Topic :: Disk tool',
     ],
 )

@@ -1,10 +1,7 @@
 """
     This software is a part of backupmystemusb2usb and its functionality is to
-    backup one usb key to another usb with same sapce disk
+    backup one usb key to another usb with same the sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
-
-https://stackoverflow.com/questions/7581710/python-subprocess-dd-and-stdout ->
-to do
 """
 from __future__ import print_function
 import re

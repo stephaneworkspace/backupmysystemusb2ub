@@ -1,31 +1,29 @@
 # #############################################################################
 # This software is a part of backupmystemusb2usb and its functionality is to 
-# backup one usb key to another usb with same sapce disk
+# backup one usb key to another usb with the same sapce disk
 # Author: Stéphane Bressani <s.bressani@bluewin.ch>
 #
-# This is the config file. After the first operation this file is writed and
+# This is the config file. After the first operation this file is written and
 # the UUID 1 Master and Slave is the same. (Because is a total copy of the usb
-# key). A label with a timestamp is writed for reconized the master and the
+# key). A label with a timestamp is written to recognized the master and the
 # slave.
 #
-# For get the info for the first time, tap in your shell:
-# 
-# sudo blkid 
+# For get the info for the first time, write in your shell: "sudo blkid" 
+# and find your two usb keys
 #
-# and find your two usb key
+# Be carfull, this is a total copy of the usb key. If your linux on usb key
+# auto-boot is 128GB, the img file generated is 128GB. You may to have disk 
+# free space in your Temp_img
 #
-# Be carful, this is a copy total of the usb key. If your linux on usb key
-# auto-boot is 128GB, the img file generated is 128GB. You may have disk free
-# space in your Temp_img
+# And don't forget to create path for variable Temp_img 
+# (no need of touch the *.img or *.log)
 #
-# And not forgot to create path (no need of touch the *.img or *.log)
-#
-# After the operation the img file is not delete (for rescue security). But at
-# the moment of backup, this file is deleted.
+# After the operation the img file is not deleted (for rescue security). But at
+# the moment of execution of this program, this file is deleted.
 #
 # Kill_dd: True or False call "sudo killall -9 dd" for kill all processus dd
-# Because, if you make a ctrl + c of this long execution time of this program,
-# sometime dd continue in backgroup
+# Because, if you make a Ctrl + c in this long execution time of this program,
+# sometimes dd continue to work in the background
 # ############################################################################
 UUID_1_Master: 790d1fbb-96ed-46c3-868d-08e05e223fa7
 UUID_1_Slave: 790d1fbb-96ed-46c3-868d-08e05e223fa7

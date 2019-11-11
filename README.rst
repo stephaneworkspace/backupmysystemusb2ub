@@ -3,7 +3,7 @@ backupmystemusb2usb: Backup my system usb to usb
 
 backupmystemusb2usb is a GPLv3-liscensed Python package for backup usb key
 
-It run on Python 3.7 and has on Python dependencies for yaml
+Its runs on Python 3.7 and has a dependency for yaml
 
 Installation
 ------------
@@ -29,4 +29,6 @@ To install the latest developpement version run the following command:
 Set a label
 -----------
 
-.. code-bloc:: bash
+.. code-bloc:: bashi
+
+I have to continue this documentation...

@@ -1,22 +1,18 @@
 """
     This software is a part of backupmystemusb2usb and its functionality is to
-    backup one usb key to another usb with same sapce disk
+    backup one usb key to another usb with the same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
-
-https://stackoverflow.com/questions/7581710/python-subprocess-dd-and-stdout ->
-to do
 """
 from __future__ import print_function
 import time
 
-# FILE_NAME = '/home/stephane/Temp/output.log'
-FILE_NAME = '/home/ruth/Documents/stephane/Code/Python/output.log'
+FILE_NAME = '/home/stephane/Temp/output.log'
 REFRESH_SEC = .1
 
-print('Copy usb key to usb key. Ctrl + c for cancel.')
+print('Copy usb key to usb key. Ctrl + c to cancel.')
 print('')
 print('If you cancel:')
-print('I recommand to run "sudo killall -9 dd" for stop the process running)')
+print('I recommand to run "sudo killall -9 dd" to stop the process running)')
 print('Or re-run with the variable in config.yml "Kill_dd: True"')
 print('')
 last_value = ''

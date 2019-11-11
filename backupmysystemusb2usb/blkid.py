@@ -1,6 +1,6 @@
 """
     This software is a part of backupmystemusb2usb and its functionality is to
-    backup one usb key to another usb with same sapce disk
+    backup one usb key to another usb with the same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 import re
@@ -23,12 +23,11 @@ class blkid:
 
     def __compute(self):
         """
-        Execute:
-            sudo blkid
-        And create a dict, and another one with 2 dimension, and another one
-        with the list of detected device
-
-        Print in the console the list of available device
+        This method:
+            - Execute "sudo blkid"
+            - Create a dict, and another one with 2 dimensions, and another one
+              with the list of detected device(s)
+            - Print in the console the list of available device(s)
         """
         global BLKIDOUTPUT
         x = 'sudo blkid'
@@ -67,7 +66,7 @@ class blkid:
                     blkid_list[i][LABEL] = f
             else:
                 blkid_list[i][LABEL] = None
-        # Array 2 dimenssion with dict
+        # Array 2 dimenssions with dict
         blkid_l_g = []
         i = -1
         for b in blkid_list:
@@ -88,12 +87,13 @@ class blkid:
             blkid_l_g[i][0][UUID] = b[UUID]
             blkid_l_g[i][0][LABEL] = b[LABEL]
         print('')
-        print('Device list :')
+        print('Device(s) list :')
         for b in blkid_l_g:
             print(b)
         print('')
-        # Remove no UUID match on first number of UUID array (occurs 0 in py,
-        # or occurs 1 in the terminal with sudo blkid)
+        # Remove if no UUID matches with the variable in config.yml on first 
+        # number of UUID array (occurs 0 in py, or occurs 1 in the terminal 
+        # with sudo blkid)
         i = 0
         blkid_match = []
         for b in blkid_l_g:
@@ -105,7 +105,7 @@ class blkid:
                 blkid_match[i][UUID] = b[0][UUID]
                 blkid_match[i][LABEL] = b[0][LABEL]
                 i += 1
-        print('Device list match with config (count = %s):' % (i))
+        print('Device(s) list match with config (count = %s):' % (i))
         for b in blkid_match:
             print(b)
         print('')
