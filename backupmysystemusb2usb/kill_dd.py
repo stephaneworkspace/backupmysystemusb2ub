@@ -14,7 +14,7 @@ class kill_dd:
         x = ['sudo', 'killall', '-9', 'dd']
         try:
             cmd_list = x
-            cmd = subprocess.Popen(cmd_list)
+            cmd = Popen(cmd_list)
             cmd.wait()
         except CalledProcessError:
             print('Error in sudo killall -9 dd')
