@@ -1,0 +1,8 @@
+[Unit]
+After=ssh.service
+
+[Service]
+ExecStart=/home/stephane/Code/Python/backupmysystemusb2usb/run.sh
+
+[Install]
+WantedBy=default.target
