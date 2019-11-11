@@ -48,3 +48,8 @@ TTY_YML_VARIABLE = '%s: %s'
 TTY_MASTER = 'Master: %s'
 TTY_SLAVE = 'Slave: %s'
 TTY_ALL_OK = 'All ok !'
+
+TTY_U_1 = 'Copy disk to disk. Ctrl + c to cancel'
+TTY_U_2 = 'If you cancel:'
+TTY_U_3 = 'I recommand to run "sudo killall -9 dd" to stop the process running'
+TTY_U_4 = 'Or re-run with the variable in config.yml "Kill_dd: True"'

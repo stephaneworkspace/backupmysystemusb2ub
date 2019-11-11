@@ -5,15 +5,16 @@
 """
 from __future__ import print_function
 import time
+from backupsystemusb2usb import const
 
 FILE_NAME = '/home/stephane/Temp/output.log'
 REFRESH_SEC = .1
 
-print('Copy usb key to usb key. Ctrl + c to cancel.')
+print(const.TTY_U_1)
 print('')
-print('If you cancel:')
-print('I recommand to run "sudo killall -9 dd" to stop the process running)')
-print('Or re-run with the variable in config.yml "Kill_dd: True"')
+print(const.TTY_U_2)
+print(const.TTY_U_3)
+print(const.TTY_U_3)
 print('')
 last_value = ''
 while 1:
