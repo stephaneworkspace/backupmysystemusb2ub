@@ -50,7 +50,7 @@ class dd:
         except CalledProcessError:
             print(const.ERR_DD_CITS)
             xx = x % (self.img_path, self.blkid.slave[DEVICE])
-            print(const.ERR_CMD  % (xx))
+            print(const.ERR_CMD % (xx))
 
     def __cmd(self, cmd_list):
         try:
@@ -67,7 +67,7 @@ class dd:
                             print(o, end='')
                     break
             print('')
-            print(TTY_DD_COPY_SUCCESSFULL)
+            print(const.TTY_DD_COPY_SUCCESSFULL)
             print('')
         except CalledProcessError:
-            print(ERR_CMD_DD)
+            print(const.ERR_CMD_DD)

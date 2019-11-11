@@ -29,5 +29,5 @@ while 1:
             last_value = value
             print(value, end='')
         log_file.close()
-    except:
+    except IOError:
         pass

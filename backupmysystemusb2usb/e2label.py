@@ -21,9 +21,9 @@ class e2label:
         """
         global DDOUTPUT
         now = datetime.now()
-        dt_string = now.strftime('%Y%m%d%H%M%S')
-        print(TTY_E2LABEL_WTSLTM % (self.blkid.master[DEVICE],
-                                                 dt_string))
+        dt_string = now.strftime('"%Y%m%d%H%M%S"')
+        print(const.TTY_E2LABEL_WTSLTM % (self.blkid.master[DEVICE],
+                                          dt_string))
         x = 'sudo e2label %s1 "%s"'
         try:
             cmd_list = ['sudo', 'e2label', self.blkid.master[DEVICE],
@@ -33,6 +33,6 @@ class e2label:
             DDOUTPUT = cmd.communicate()[0]
             print(DDOUTPUT)
         except CalledProcessError:
-            print(ERR_E2LABEL_WTSLTM)
+            print(const.ERR_E2LABEL_WTSLTM)
             xx = x % (self.blkid.master[DEVICE], dt_string)
-            print(ERR_CMD % (xx))
+            print(const.ERR_CMD % (xx))

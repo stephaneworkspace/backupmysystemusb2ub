@@ -34,7 +34,7 @@ class blkid:
         try:
             cmd = Popen(x, stdout=PIPE, stderr=STDOUT, shell=True)
         except CalledProcessError:
-            print(ERR_BLKID_COMPUTE)
+            print(const.ERR_BLKID_COMPUTE)
         BLKIDOUTPUT = cmd.communicate()[0]
         array = str(BLKIDOUTPUT.decode('UTF-8')).split('\n')
         blkid_list = []
@@ -87,12 +87,12 @@ class blkid:
             blkid_l_g[i][0][UUID] = b[UUID]
             blkid_l_g[i][0][LABEL] = b[LABEL]
         print('')
-        print(TTY_BLKID_DEVICE_LIST)
+        print(const.TTY_BLKID_DEVICE_LIST)
         for b in blkid_l_g:
             print(b)
         print('')
-        # Remove if no UUID matches with the variable in config.yml on first 
-        # number of UUID array (occurs 0 in py, or occurs 1 in the terminal 
+        # Remove if no UUID matches with the variable in config.yml on first
+        # number of UUID array (occurs 0 in py, or occurs 1 in the terminal
         # with sudo blkid)
         i = 0
         blkid_match = []
@@ -105,7 +105,7 @@ class blkid:
                 blkid_match[i][UUID] = b[0][UUID]
                 blkid_match[i][LABEL] = b[0][LABEL]
                 i += 1
-        print(TTY_BLKID_DEVICE_LIST_MATCH % (i))
+        print(const.TTY_BLKID_DEVICE_LIST_MATCH % (i))
         for b in blkid_match:
             print(b)
         print('')
@@ -114,7 +114,7 @@ class blkid:
                 raise Exception(const.ERR_COUNT)
         except Exception as error:
             print(error)
-            print(ERR_BLKID_NO_OPERATION_IF % (i))
+            print(const.ERR_BLKID_NO_OPERATION_IF % (i))
         # Detect master and slave
         try:
             if self.master[UUID] == self.slave[UUID]:

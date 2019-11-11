@@ -12,7 +12,7 @@ from backupmysystemusb2usb.kill_dd import kill_dd
 from backupmysystemusb2usb.umount import umount
 from backupmysystemusb2usb import const
 
-print(TTY_INTRO)
+print(const.TTY_INTRO)
 print('')
 print(const.TTY_YML_TRY)
 bs = backup_system()
@@ -22,9 +22,9 @@ if bs.status is False:
     exit()
 print(const.TTY_YML_SUCCESS)
 print('')
-print(TTY_YML_VARIABLES_USED)
+print(const.TTY_YML_VARIABLES_USED)
 for key in bs.data:
-    print(TTY_YML_VARIABLE % (key, bs.data[key]))
+    print(const.TTY_YML_VARIABLE % (key, bs.data[key]))
 # If same UUID and same label, failed
 UUID_1_MASTER = bs.data[const.YML_UUID_1_MASTER]
 UUID_1_SLAVE = bs.data[const.YML_UUID_1_SLAVE]
@@ -50,8 +50,6 @@ try:
     d.copy_img_to_slave()
     e = e2label(b)
     e.write_time_stamp_label_to_master()
-    print('')
-    u = umount(b)
     print('')
     print(const.TTY_ALL_OK)
 except IOError as error:

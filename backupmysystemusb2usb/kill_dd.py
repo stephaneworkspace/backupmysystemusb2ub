@@ -4,6 +4,7 @@
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 from subprocess import Popen, CalledProcessError
+from . import const
 
 
 class kill_dd:
@@ -17,4 +18,4 @@ class kill_dd:
             cmd = Popen(cmd_list)
             cmd.wait()
         except CalledProcessError:
-            print(ERR_KILL_DD)
+            print(const.ERR_KILL_DD)
