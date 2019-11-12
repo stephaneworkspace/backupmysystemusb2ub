@@ -57,5 +57,7 @@ while 1:
             last_value = value
             print(value, end='')
         log_file.close()
+        if value == const.TTY_ALL_OK:
+            break
     except IOError:
         pass

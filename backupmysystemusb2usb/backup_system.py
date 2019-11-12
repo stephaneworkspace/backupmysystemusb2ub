@@ -10,7 +10,7 @@ from . import const
 class backup_system:
     def __init__(self, path):
         print(const.TTY_YML_TRY % (path))
-        if path is None or path is == '':
+        if path is None or path == '':
             self.path = 'config.yml'
         else:
             self.path = path

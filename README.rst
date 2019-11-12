@@ -87,7 +87,31 @@ Now we have to create the shell return for no-root user
 
    WORK IN PROGRESS FOR THE X11 GTK INTERFACE...
 
-You can have the display of progress with run_user.py in my github
+You can have the display of progress with run_user.py and run_user.sh in my github (modifiy the path for config.yml)
+
+You can create a Gnome desktop startup
+
+.. code-block:: bash
+
+   cd ~/.config/autostart
+   touch backupmystemusb2usb.desktop
+   chmod 744
+   vi backupmystemusb2usb.desktop
+
+And in your editor enter
+
+.. code-block:: bash
+
+   [Desktop Entry]
+   Name=Backup my system usb to usb
+   Comment=Copy disk with the same space
+   Exec=/your/working/path/run_user.sh
+   Icon=org.gnome.Terminal
+   Path=/your/working/path/
+   Terminal=true
+   Hidden=false
+   Type=Application
+   Categories=Utility;Application;
 
 Installation from source
 ------------------------
