@@ -18,7 +18,7 @@ REFRESH_SEC = 30
 
 
 class dd:
-    def __init__(self, blkid, img_path):
+    def __init__(self, blkid, img_path, log):
         self.blkid = blkid
         self.img_path = img_path
 
@@ -26,31 +26,31 @@ class dd:
         """
         Copy master to img
         """
-        print(const.TTY_DD_CMTI)
+        self.log.add_log(const.TTY_DD_CMTI)
         x = 'sudo dd if=%s of=%s bs=4M'
         try:
             cmd_list = ['sudo', 'dd', 'if=' + self.blkid.master[DEVICE], 'of='
                         + self.img_path, 'bs=4M']
             self.__cmd(cmd_list)
         except CalledProcessError:
-            print(const.ERR_DD_CMTI)
+            self.log.add_log(const.ERR_DD_CMTI)
             xx = x % (self.blkid.master[DEVICE], self.img_path)
-            print(const.ERR_CMD % (xx))
+            self.log.add_log(const.ERR_CMD % (xx))
 
     def copy_img_to_slave(self):
         """
         Copy img to slave
         """
-        print(const.TTY_DD_CITS)
+        self.log.add_log(const.TTY_DD_CITS)
         x = 'sudo dd if=%s of=%s bs=4m'
         try:
             cmd_list = ['sudo', 'dd', 'if=' + self.img_path, 'of=' +
                         self.blkid.slave[DEVICE], 'bs=4M']
             self.__cmd(cmd_list)
         except CalledProcessError:
-            print(const.ERR_DD_CITS)
+            self.log.add_log(const.ERR_DD_CITS)
             xx = x % (self.img_path, self.blkid.slave[DEVICE])
-            print(const.ERR_CMD % (xx))
+            self.log.add_log(const.ERR_CMD % (xx))
 
     def __cmd(self, cmd_list):
         try:
@@ -64,10 +64,10 @@ class dd:
                     for o in output.split('\r'):
                         pattern = r'\b(?:MB|GB|TB)\b'
                         if re.search(pattern, o):
-                            print(o, end='')
+                            self.log.add_log_end(o)
                     break
-            print('')
-            print(const.TTY_DD_COPY_SUCCESSFULL)
-            print('')
+            self.log.add_log('')
+            self.log.add_log(const.TTY_DD_COPY_SUCCESSFULL)
+            self.log.add_log('')
         except CalledProcessError:
-            print(const.ERR_CMD_DD)
+            self.log.add_log(const.ERR_CMD_DD)

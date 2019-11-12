@@ -46,31 +46,31 @@ UUID_1_SLAVE = bs.data[const.YML_UUID_1_SLAVE]
 try:
     b = blkid(UUID_1_MASTER, UUID_1_SLAVE, log)
 except CalledProcessError as error:
-    print(error)
+    log.add_log(error)
     exit()
 except Exception:
     exit()
-print('')
-print(const.TTY_MASTER % (b.master))
-print(const.TTY_SLAVE % (b.slave))
-print('')
+log.add_log('')
+log.add_log(const.TTY_MASTER % (b.master))
+log.add_log(const.TTY_SLAVE % (b.slave))
+log.add_log('')
 
 try:
-    u = umount(b)
+    u = umount(b, log)
     if bs.data[const.YML_KILL_DD]:
-        k = kill_dd()
+        k = kill_dd(log)
         k.run()
-        print('')
-    d = dd(b, bs.data[const.YML_TEMP_IMG])
+        log.add_log('')
+    d = dd(b, bs.data[const.YML_TEMP_IMG], log)
     d.copy_master_to_img()
     d.copy_img_to_slave()
-    e = e2label(b)
+    e = e2label(b, log)
     e.write_time_stamp_label_to_master()
-    print('')
-    print(const.TTY_ALL_OK)
+    log.add_log('')
+    log.add_log(const.TTY_ALL_OK)
 except IOError as error:
-    print(error)
+    log.add_log(error)
     exit()
 except CalledProcessError as error:
-    print(error)
+    log.add_log(error)
     exit()

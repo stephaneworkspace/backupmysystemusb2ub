@@ -1,6 +1,6 @@
 """
     This software is a part of backupmystemusb2usb and its functionality is to
-    backup one usb key to another usb with the same sapce disk
+    backup one usb key to another usb with the same space disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 from subprocess import Popen, CalledProcessError
@@ -10,16 +10,17 @@ DEVICE = const.DEVICE
 
 
 class umount:
-    def __init__(self, blkid):
+    def __init__(self, blkid, log):
         self.blkid = blkid
+        self.log = log
         self.__umount()
 
     def __umount(self):
         """
         Umount disks
         """
-        print(const.TTY_UMOUNT % (self.blkid.master[DEVICE],
-                                  self.blkid.slave[DEVICE]))
+        log.add_log(const.TTY_UMOUNT % (self.blkid.master[DEVICE],
+                                        self.blkid.slave[DEVICE]))
         x = 'sudo umount %s'
         try:
             xx = x % (self.blkid.master[DEVICE])
@@ -31,5 +32,5 @@ class umount:
             cmd = Popen(cmd_list)
             cmd.wait()
         except CalledProcessError:
-            print(const.ERR_UMOUNT)
-            print(const.ERR_CMD % (xx))
+            log.add_log(const.ERR_UMOUNT)
+            log.add_log(const.ERR_CMD % (xx))

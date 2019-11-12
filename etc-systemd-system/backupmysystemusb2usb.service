@@ -3,7 +3,7 @@ After=ssh.service
 
 [Service]
 WorkingDirectory=/home/stephane/Code/Python/backupmysystemusb2usb/
-ExecStart=/home/stephane/Code/Python/backupmysystemusb2usb/run.py config.yml
+ExecStart=/usr/bin/sh -c "/home/stephane/Code/Python/backupmysystemusb2usb/run.py config.yml"
 
 [Install]
 WantedBy=default.target
