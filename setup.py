@@ -21,7 +21,7 @@ def read_requirements():
 
 setup(
     name='backupmysytemusb2usb',
-    version='0.0.11',
+    version='0.0.12',
     install_requires=(read_requirements()),
     description='Backup a usb key to another usb key with the same space disk',
     long_description=(read('README.rst') + '\n\n'),
