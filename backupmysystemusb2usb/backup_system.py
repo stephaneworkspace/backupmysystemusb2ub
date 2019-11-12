@@ -10,10 +10,10 @@ from . import const
 class backup_system:
     def __init__(self, path):
         print(const.TTY_YML_TRY % (path))
-        # if path is None:
-        # self.path = 'config.yml'
-        # else:
-        self.path = path
+        if path is None or path is == '':
+            self.path = 'config.yml'
+        else:
+            self.path = path
         with open(self.path, 'r') as stream:
             try:
                 self.data = yaml.safe_load(stream)
