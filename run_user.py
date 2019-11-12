@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
     This software is a part of backupmystemusb2usb and its functionality is to
-    backup one usb key to another usb with the same sapce disk
+    backup one usb key to another usb with the same space disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 from __future__ import print_function
@@ -30,10 +30,18 @@ print(const.TTY_YML_SUCCESS)
 print('')
 
 last_value = ''
+try:
+    log_file = open(bs.data[const.YML_TEMP_LOG], 'r')
+    arr_file = log_file.readlines()
+    for i in range(0, len(arr_file) - 1):
+        print(arr_file[i], end='')
+    last_value = arr_file[i]
+except IOError:
+    pass
 while 1:
     time.sleep(REFRESH_SEC)
     try:
-        log_file = open(bs.data[const.YML_TEMP_LOG], "r")
+        log_file = open(bs.data[const.YML_TEMP_LOG], 'r')
         arr_file = log_file.readlines()
         if len(arr_file) > 0:
             value = arr_file[len(arr_file) - 1]

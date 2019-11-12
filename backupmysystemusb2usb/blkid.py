@@ -14,11 +14,12 @@ LABEL = const.LABEL
 
 
 class blkid:
-    def __init__(self, uuid_1_master, uuid_1_slave):
+    def __init__(self, uuid_1_master, uuid_1_slave, log):
         self.master = {}
         self.slave = {}
         self.master[UUID] = uuid_1_master
         self.slave[UUID] = uuid_1_slave
+        self.log = log
         self.__compute()
 
     def __compute(self):
@@ -34,7 +35,7 @@ class blkid:
         try:
             cmd = Popen(x, stdout=PIPE, stderr=STDOUT, shell=True)
         except CalledProcessError:
-            print(const.ERR_BLKID_COMPUTE)
+            self.log.add_log(const.ERR_BLKID_COMPUTE)
         BLKIDOUTPUT = cmd.communicate()[0]
         array = str(BLKIDOUTPUT.decode('UTF-8')).split('\n')
         blkid_list = []
@@ -86,11 +87,11 @@ class blkid:
             blkid_l_g[i][0][PARTITION] = b[PARTITION]
             blkid_l_g[i][0][UUID] = b[UUID]
             blkid_l_g[i][0][LABEL] = b[LABEL]
-        print('')
+        self.log.add_log('')
         print(const.TTY_BLKID_DEVICE_LIST)
         for b in blkid_l_g:
-            print(b)
-        print('')
+            self.log.add_log(b)
+        self.log.add_log('')
         # Remove if no UUID matches with the variable in config.yml on first
         # number of UUID array (occurs 0 in py, or occurs 1 in the terminal
         # with sudo blkid)
@@ -105,16 +106,16 @@ class blkid:
                 blkid_match[i][UUID] = b[0][UUID]
                 blkid_match[i][LABEL] = b[0][LABEL]
                 i += 1
-        print(const.TTY_BLKID_DEVICE_LIST_MATCH % (i))
+        self.log.add_log(const.TTY_BLKID_DEVICE_LIST_MATCH % (i))
         for b in blkid_match:
-            print(b)
-        print('')
+            self.log.add_log(b)
+        self.log.add_log('')
         try:
             if i != 2:
                 raise Exception(const.ERR_COUNT)
         except Exception as error:
-            print(error)
-            print(const.ERR_BLKID_NO_OPERATION_IF % (i))
+            self.log.add_log(error)
+            self.log.add_log(const.ERR_BLKID_NO_OPERATION_IF % (i))
             exit()
         # Detect master and slave
         try:
@@ -143,5 +144,5 @@ class blkid:
                         self.slave[DEVICE] = blkid_match[i][DEVICE] + '1'
                         self.slave[LABEL] = blkid_match[i][LABEL]
         except Exception as error:
-            print(error)
+            self.log.add_log(error)
             exit()
