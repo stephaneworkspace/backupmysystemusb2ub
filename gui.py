@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
+"""
+    This software is a part of backupmystemusb2usb and its functionality is to
+    backup one usb key to another usb with the same space disk
+    Author: Stéphane Bressani <s.bressani@bluewin.ch>
+"""
 import gi
-from gi.repository import Gtk
 gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk  # noqa: E402
 
 GUI_TITLE = 'Backup my system usb to usb'
 GUI_HBOX_SPACING = 5
-GUI_BUTTON_CANCEL = 'Cancel operation'
+GUI_BUTTON_CANCEL = 'Cancel operation [Ctrl + c]'
 
 log_list = [('1'), ('2'), ('3')]
 """
@@ -44,7 +49,6 @@ class LogWindow(Gtk.Window):
             self.treeview.append_column(column)
 
         hbox = Gtk.Box(spacing=GUI_HBOX_SPACING)
-        self.add(hbox)
 
         button = Gtk.Button.new_with_label(GUI_BUTTON_CANCEL)
         button.connect('clicked', self.on_click_cancel)
@@ -59,11 +63,28 @@ class LogWindow(Gtk.Window):
                                  Gtk.PositionType.BOTTOM, 1, 1)
         self.scrollable_treelist.add(self.treeview)
 
+        self.grid.connect('key-release-event', self.on_key_release)
+
         self.show_all()
 
     def on_click_cancel(self, button):
         """
-        Cancel operation
+        Cancel execution
+        """
+        self.__cancel_execution()
+
+    def on_key_release(self, widget, ev, data=None):
+        """
+        Key release
+        """
+        if ev.keyval in [Gdk.KEY_Control_L, Gdk.KEY_c]:
+            self.__cancel_execution()
+        if ev.keyval in [Gdk.KEY_Control_R, Gdk.KEY_c]:
+            self.__cancel_execution()
+
+    def __cancel_execution(self):
+        """
+        Cancel execution
         """
         Gtk.main_quit()
 
