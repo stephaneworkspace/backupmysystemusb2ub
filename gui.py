@@ -32,12 +32,15 @@ class LogWindow(Gtk.Window):
         # Creating the treeview, making it use the filter as a model,
         # and adding the columns
         self.filter = self.log_list_liststore.filter_new()
+        # Setting the filter
+        self.filter.set_visible_func(self.filter_func)
+
         # Crating the treeview, making it use the filter as a model, and adding
         # columns
         self.treeview = Gtk.TreeView.new_with_model(self.filter)
         for i, column_title in enumerate(['Log']):
             renderer = Gtk.CellRendererText()
-            column = Gtk.TreeViewColumn(column_title, renderer, text=1)
+            column = Gtk.TreeViewColumn(column_title, renderer, text=i)
             self.treeview.append_column(column)
 
         hbox = Gtk.Box(spacing=GUI_HBOX_SPACING)
@@ -63,6 +66,9 @@ class LogWindow(Gtk.Window):
         Cancel operation
         """
         Gtk.main_quit()
+
+    def filter_func(self, model, iter, data):
+        return True
 
 
 win = LogWindow()
