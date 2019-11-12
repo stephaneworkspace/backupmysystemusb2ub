@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
     This software is a part of backupmystemusb2usb and its functionality is to
     backup one usb key to another usb with the same sapce disk
