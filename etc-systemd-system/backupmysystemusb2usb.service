@@ -2,7 +2,7 @@
 After=ssh.service
 
 [Service]
-ExecStart=/home/stephane/Code/Python/backupmysystemusb2usb/run.sh
+ExecStart=/usr/bin/sh -c "/home/stephane/Code/Python/backupmysystemusb2usb/run.py > /home/stephane/Temp/BackupMySystemTemp.log 2>&1"
 
 [Install]
 WantedBy=default.target
