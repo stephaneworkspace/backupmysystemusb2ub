@@ -21,6 +21,7 @@ class dd:
     def __init__(self, blkid, img_path, log):
         self.blkid = blkid
         self.img_path = img_path
+        self.log = log
 
     def copy_master_to_img(self):
         """

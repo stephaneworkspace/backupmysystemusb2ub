@@ -88,9 +88,9 @@ class blkid:
             blkid_l_g[i][0][UUID] = b[UUID]
             blkid_l_g[i][0][LABEL] = b[LABEL]
         self.log.add_log('')
-        print(const.TTY_BLKID_DEVICE_LIST)
+        self.log.add_log(const.TTY_BLKID_DEVICE_LIST)
         for b in blkid_l_g:
-            self.log.add_log(b)
+            self.log.add_log(str(b))
         self.log.add_log('')
         # Remove if no UUID matches with the variable in config.yml on first
         # number of UUID array (occurs 0 in py, or occurs 1 in the terminal
@@ -108,7 +108,7 @@ class blkid:
                 i += 1
         self.log.add_log(const.TTY_BLKID_DEVICE_LIST_MATCH % (i))
         for b in blkid_match:
-            self.log.add_log(b)
+            self.log.add_log(str(b))
         self.log.add_log('')
         try:
             if i != 2:

@@ -19,7 +19,7 @@ class umount:
         """
         Umount disks
         """
-        log.add_log(const.TTY_UMOUNT % (self.blkid.master[DEVICE],
+        self.log.add_log(const.TTY_UMOUNT % (self.blkid.master[DEVICE],
                                         self.blkid.slave[DEVICE]))
         x = 'sudo umount %s'
         try:
@@ -32,5 +32,5 @@ class umount:
             cmd = Popen(cmd_list)
             cmd.wait()
         except CalledProcessError:
-            log.add_log(const.ERR_UMOUNT)
-            log.add_log(const.ERR_CMD % (xx))
+            self.log.add_log(const.ERR_UMOUNT)
+            self.log.add_log(const.ERR_CMD % (xx))

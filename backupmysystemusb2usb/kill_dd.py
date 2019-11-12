@@ -8,7 +8,10 @@ from . import const
 
 
 class kill_dd:
-    def run(self, log):
+    def __init__(self, log):
+        self.log = log
+
+    def run(self):
         """
         Run sudo killall -9 dd
         """
@@ -18,4 +21,4 @@ class kill_dd:
             cmd = Popen(cmd_list)
             cmd.wait()
         except CalledProcessError:
-            log.add_log(const.ERR_KILL_DD)
+            self.log.add_log(const.ERR_KILL_DD)
