@@ -34,7 +34,7 @@ setup(
     python_requires='>=3.7',
     zip_safe=False,
     classifiers=[
-        'Development Status :: 0 - Beta',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'License :: OSI Approved :: GNU General Public License v3 or later',
