@@ -35,7 +35,7 @@ while 1:
         arr_file = log_file.readlines()
         if len(arr_file) > 0 :
             value = arr_file[len(arr_file) - 1]
-        else
+        else:
             value = ''
         if last_value == '':
             last_value = value
