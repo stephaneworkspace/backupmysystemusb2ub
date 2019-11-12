@@ -7,8 +7,12 @@ import yaml
 
 
 class backup_system:
-    def __init__(self):
-        with open('config.yml', 'r') as stream:
+    def __init__(self, path):
+        if path is None:
+            self.path = 'config.yml'
+        else:
+            self.path = path
+        with open(self.path, 'r') as stream:
             try:
                 self.status = True
                 self.data = yaml.safe_load(stream)

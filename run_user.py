@@ -6,6 +6,7 @@
 """
 from __future__ import print_function
 import time
+# import sys
 from backupmysystemusb2usb.backup_system import backup_system
 from backupmysystemusb2usb import const
 
@@ -19,7 +20,8 @@ print(const.TTY_U_4)
 print('')
 
 print(const.TTY_YML_TRY)
-bs = backup_system()
+# bs = backup_system(sys.argv[0])
+bs = backup_system(None)
 if bs.status is False:
     print(const.TTY_YML_FAILED)
     print(bs.error)

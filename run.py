@@ -4,6 +4,7 @@
     backup one usb key to another usb with the same sapce disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
+import sys
 from subprocess import CalledProcessError
 from backupmysystemusb2usb.backup_system import backup_system
 from backupmysystemusb2usb.blkid import blkid
@@ -17,7 +18,7 @@ print(const.TTY_INTRO)
 print('')
 
 print(const.TTY_YML_TRY)
-bs = backup_system()
+bs = backup_system(sys.argv[0])
 if bs.status is False:
     print(const.TTY_YML_FAILED)
     print(bs.error)
