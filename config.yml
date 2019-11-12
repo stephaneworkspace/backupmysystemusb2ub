@@ -28,5 +28,5 @@
 UUID_1_Master: 790d1fbb-96ed-46c3-868d-08e05e223fa7
 UUID_1_Slave: 790d1fbb-96ed-46c3-868d-08e05e223fa7
 Temp_img: /home/stephane/Temp/Linux.img
-Temp_log: /home/stephane/Temp/BackupMySytem-Temp.log
+Temp_log: /home/stephane/Temp/BackupMySystem-Temp.log
 Kill_dd: True

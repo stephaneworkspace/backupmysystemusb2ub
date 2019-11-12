@@ -8,10 +8,10 @@ import yaml
 
 class backup_system:
     def __init__(self, path):
-        if path is None:
-            self.path = 'config.yml'
-        else:
-            self.path = path
+        # if path is None:
+        self.path = 'config.yml'
+        # else:
+        #   self.path = path
         with open(self.path, 'r') as stream:
             try:
                 self.status = True
