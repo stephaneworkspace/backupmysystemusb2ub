@@ -2,8 +2,9 @@
 After=ssh.service
 
 [Service]
-WorkingDirectory=/home/stephane/Code/Python/backupmysystemusb2usb/
-ExecStart=/usr/bin/sh -c "/home/stephane/Code/Python/backupmysystemusb2usb/run.py config.yml"
+# WorkingDirectory=/home/stephane/Code/Python/backupmysystemusb2usb/
+# ExecStart=/usr/bin/sh -c "/home/stephane/Code/Python/backupmysystemusb2usb/run.py config.yml"
+ExecStart=/usr/bin/python3 -c "from backupmysystemusb2usb.usb2usb import usb2usb; u2u = usb2usb('/home/stephane/.local/share/backupmysystemusb2usb/config.yml')"
 
 [Install]
 WantedBy=default.target
