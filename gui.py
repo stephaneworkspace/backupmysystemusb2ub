@@ -31,7 +31,10 @@ class LogWindow(Gtk.Window):
         self.current_filter = None
         # Creating the treeview, making it use the filter as a model,
         # and adding the columns
-        self.treeview = Gtk.TreeView.new_with_model()
+        self.filter = self.log_list_liststore.filter_new()
+        # Crating the treeview, making it use the filter as a model, and adding
+        # columns
+        self.treeview = Gtk.TreeView.new_with_model(self.filter)
         for i, column_title in enumerate(['Log']):
             renderer = Gtk.CellRendererText()
             column = Gtk.TreeViewColumn(column_title, renderer, text=1)
@@ -47,9 +50,9 @@ class LogWindow(Gtk.Window):
         # Setting up the layout, putting the treeview in scrollwindow, and
         # the button in
         self.scrollable_treelist = Gtk.ScrolledWindow()
-        self.scrollable_treelist.set_expand(True)
+        self.scrollable_treelist.set_vexpand(True)
         self.grid.attach(self.scrollable_treelist, 0, 0, 8, 10)
-        self.grid.attach_next_to(self.hbox, self.scrollable_treelist,
+        self.grid.attach_next_to(hbox, self.scrollable_treelist,
                                  Gtk.PositionType.BOTTOM, 1, 1)
         self.scrollable_treelist.add(self.treeview)
 
