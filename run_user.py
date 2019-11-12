@@ -33,7 +33,10 @@ while 1:
     try:
         log_file = open(bs.data[const.YML_TEMP_LOG], "r")
         arr_file = log_file.readlines()
-        value = arr_file[len(arr_file) - 1]
+        if len(arr_file) > 0 :
+            value = arr_file[len(arr_file) - 1]
+        else
+            value = ''
         if last_value == '':
             last_value = value
             print(value, end='')
