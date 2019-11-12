@@ -13,15 +13,22 @@ def read(*paths):
         return f.read()
 
 
+def read_requirements():
+    """Requirements pip"""
+    with open('requirements.txt') as f:
+        return f.read().splitlines()
+
+
 setup(
     name='backupmysytemusb2usb',
-    version='0.0.7',
+    version='0.0.11',
+    install_requires=(read_requirements()),
     description='Backup a usb key to another usb key with the same space disk',
-    long_descriptiob=(read('README.rst') + '\n\n'),
+    long_description=(read('README.rst') + '\n\n'),
     url='https://github.com/stephaneworkspace/backupmysystemusb2usb.git',
     author='Stéphane Bressani',
     author_email='s.bressani@bluewin.ch',
-    licence='GPLv3+',
+    license='GPLv3+',
     packages=find_packages(include=['backupmystemusb2usb',
                                     'backupmystemusb2usb.*']),
     python_requires='>=3.7',

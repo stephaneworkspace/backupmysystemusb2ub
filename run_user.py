@@ -5,12 +5,17 @@
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 from __future__ import print_function
+import sys
 import time
-# import sys
+import yaml
 from backupmysystemusb2usb.backup_system import backup_system
 from backupmysystemusb2usb import const
 
 REFRESH_SEC = .1
+CONFIG_FILE = '~/.local/share/backupmysystemusb2usb/config.yml'
+config_file = CONFIG_FILE
+if not sys.argv[1] is None:
+    config_file = sys.argv[1]
 
 print(const.TTY_U_1)
 print('')
@@ -19,12 +24,10 @@ print(const.TTY_U_3)
 print(const.TTY_U_4)
 print('')
 
-print(const.TTY_YML_TRY)
-# bs = backup_system(sys.argv[0])
-bs = backup_system(None)
-if bs.status is False:
-    print(const.TTY_YML_FAILED)
-    print(bs.error)
+print(const.TTY_YML_TRY % (config_file))
+try:
+    bs = backup_system(config_file)
+except yaml.YAMLError:
     exit()
 print(const.TTY_YML_SUCCESS)
 print('')
