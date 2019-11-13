@@ -75,7 +75,7 @@ Now for create a daemon in startup (without console)
    After=ssh.service
 
    [Service]
-   WorkingDirecotry=/your/working/path/
+   WorkingDirectory=/your/working/path/
    ExecStart=/usr/bin/sh -c "/your/working/path/run.py /your/working/path/config.yml"
 
    [Install]

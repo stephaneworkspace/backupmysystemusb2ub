@@ -1,0 +1,10 @@
+[Unit]
+After=ssh.service
+
+[Service]
+WorkingDirectory=/root/backupmysystemusb2usb/
+ExecStart=/usr/bin/sh -c "/root/backupmysystemusb2usb/run.py /home/stephane/.local/share/backupmysystemusb2usb/config.yml"
+
+[Install]
+WantedBy=default.target
+
