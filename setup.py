@@ -1,5 +1,5 @@
 """
-    This software is a part of backupmystemusb2usb and its functionality is to
+    This software is a part of backupmysystemusb2usb and its functionality is to
     backup one usb key to another usb with the same space disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
@@ -30,7 +30,7 @@ def parse_requirements(filename):
 GNU = 'GNU Lesser General Public License v3 or later (LGPLv3+)'
 
 setup(
-    name='backupmysytemusb2usb',
+    name='backupmysystemusb2usb',
     version='0.0.14',
     install_requires=parse_requirements('requirements.txt'),
     description='Backup a usb key to another usb key with the same space disk',
@@ -39,8 +39,8 @@ setup(
     author='Stéphane Bressani',
     author_email='s.bressani@bluewin.ch',
     license='GPLv3+',
-    packages=find_packages(include=['backupmystemusb2usb',
-                                    'backupmystemusb2usb.*']),
+    packages=find_packages(include=['backupmysystemusb2usb',
+                                    'backupmysystemusb2usb.*']),
     python_requires='>=3.7',
     zip_safe=False,
     classifiers=[
