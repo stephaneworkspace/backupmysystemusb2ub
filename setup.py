@@ -13,26 +13,11 @@ def read(*paths):
         return f.read()
 
 
-def parse_requirements(filename):
-    filepath = os.path.join(filename)
-    content = read(filename)
-
-    for line_number, line in enumerate(content.splitlines(), 1):
-        candidate = line.strip()
-
-        if candidate.startswith('-r'):
-            for item in parse_requirements(candidate[2:].strip(), filepath):
-                yield item
-        else:
-            yield candidate
-
-
 GNU = 'GNU Lesser General Public License v3 or later (LGPLv3+)'
 
 setup(
     name='backupmysystemusb2usb',
     version='0.0.15',
-    install_requires=parse_requirements('requirements.txt'),
     description='Backup a usb key to another usb key with the same space disk',
     long_description=(read('README.rst')),
     url='https://github.com/stephaneworkspace/backupmysystemusb2usb.git',
@@ -41,6 +26,9 @@ setup(
     license='GPLv3+',
     packages=find_packages(include=['backupmysystemusb2usb',
                                     'backupmysystemusb2usb.*']),
+    install_requires=[
+        'PyYAML==5.1.2',
+    ],
     python_requires='>=3.7',
     zip_safe=False,
     classifiers=[
