@@ -88,7 +88,7 @@ Enable and start
 .. code-block:: bash
    
    sudo systemctl daemon-reload
-   sudo systemctl enabled backupmysystemusb2usb
+   sudo systemctl enable backupmysystemusb2usb
 
 Then the service start on reboot.
 If you will test now the service :
