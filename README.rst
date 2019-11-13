@@ -69,6 +69,8 @@ Now for create a daemon in startup (without console)
    cd /etc/systemd/system
    vi backupmystemusb2usb.service
 
+Write
+   
 .. code-block:: bash
 
    [Unit]
@@ -81,6 +83,28 @@ Now for create a daemon in startup (without console)
    [Install]
    WantedBy=default.target
 
+Enable and start
+
+.. code-block:: bash
+   
+   sudo systemctl daemon-reload
+   sudo systemctl enabled backupmystemusb2usb
+
+Then the service start on reboot.
+If you will test now the service :
+
+.. code-block:: bash
+
+   sudo systemctl start backupmystemusb2usb
+
+Check the log (no detail just the command like dd)
+
+.. code-block:: bash
+
+   sudo journalctl --unit backupmysystemusb2usb -n 20
+
+You can go to check your ouput log file configured by config.yml
+   
 Now we have to create the shell return for no-root user
 
 .. code-block:: bash

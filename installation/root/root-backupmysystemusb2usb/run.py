@@ -7,8 +7,13 @@
 import sys
 import yaml
 from backupmysystemusb2usb.usb2usb import usb2usb
+CONFIG_FILE = 'config.yml'
 try:
-    u2u = usb2usb(sys.argv[1])
+    if (len(sys.argv) - 1) > 0:
+        config_file = sys.argv[1]
+    else:
+        config_file = CONFIG_FILE
+    u2u = usb2usb(config_file)
     u2u.backup()
 except yaml.YAMLError:
     exit()

@@ -12,9 +12,9 @@ from backupmysystemusb2usb.backup_system import backup_system
 from backupmysystemusb2usb import const
 
 REFRESH_SEC = .1
-CONFIG_FILE = '~/.local/share/backupmysystemusb2usb/config.yml'
+CONFIG_FILE = 'config.yml'
 config_file = CONFIG_FILE
-if not sys.argv[1] is None:
+if (len(sys.argv) - 1) > 0:
     config_file = sys.argv[1]
 
 print(const.TTY_U_1)
@@ -24,7 +24,6 @@ print(const.TTY_U_3)
 print(const.TTY_U_4)
 print('')
 
-print(const.TTY_YML_TRY % (config_file))
 try:
     bs = backup_system(config_file)
 except yaml.YAMLError:

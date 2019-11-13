@@ -23,7 +23,7 @@ GNU = 'GNU Lesser General Public License v3 or later (LGPLv3+)'
 
 setup(
     name='backupmysytemusb2usb',
-    version='0.0.12',
+    version='0.0.13',
     install_requires=(read_requirements()),
     description='Backup a usb key to another usb key with the same space disk',
     long_description=(read('README.rst')),

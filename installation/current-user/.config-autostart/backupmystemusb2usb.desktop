@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=Backup my sytem usb to usb
+Name=Backup my system usb to usb
 #GenericName=Terminal
-Comment=standard terminal emulator for the X window system
+Comment=copy disk to disk with the same space
 Exec=/home/stephane/Code/Python/backupmysystemusb2usb/run_user.py
 Icon=org.gnome.Terminal 
 Path=/home/stephane/Code/Python/backupmysystemusb2usb/
@@ -10,4 +10,4 @@ Hidden=false
 Type=Application
 #Encoding=UTF-8
 Categories=Utility;Application;
-X-Desktop-File-Install-Version=0.24
+#X-Desktop-File-Install-Version=0.24
