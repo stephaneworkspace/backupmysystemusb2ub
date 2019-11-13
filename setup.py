@@ -5,6 +5,7 @@
 """
 import os
 from setuptools import setup, find_packages
+from pip.req import parse_requirements
 
 
 def read(*paths):
@@ -13,18 +14,12 @@ def read(*paths):
         return f.read()
 
 
-def read_requirements():
-    """Requirements pip"""
-    with open('requirements.txt') as f:
-        return f.read().splitlines()
-
-
 GNU = 'GNU Lesser General Public License v3 or later (LGPLv3+)'
 
 setup(
     name='backupmysytemusb2usb',
-    version='0.0.13',
-    install_requires=(read_requirements()),
+    version='0.0.14',
+    install_reqs=parse_requirements('requirements.txt', session='hack'),
     description='Backup a usb key to another usb key with the same space disk',
     long_description=(read('README.rst')),
     url='https://github.com/stephaneworkspace/backupmysystemusb2usb.git',
