@@ -67,7 +67,7 @@ Now for create a daemon in startup (without console)
 .. code-block:: bash
 
    cd /etc/systemd/system
-   vi backupmysytemusb2usb.service
+   vi backupmysystemusb2usb.service
 
 Write
    
@@ -88,14 +88,14 @@ Enable and start
 .. code-block:: bash
    
    sudo systemctl daemon-reload
-   sudo systemctl enabled backupmysytemusb2usb
+   sudo systemctl enabled backupmysystemusb2usb
 
 Then the service start on reboot.
 If you will test now the service :
 
 .. code-block:: bash
 
-   sudo systemctl start backupmysytemusb2usb
+   sudo systemctl start backupmysystemusb2usb
 
 Check the log (no detail just the command like dd)
 
@@ -118,9 +118,9 @@ You can create a Gnome desktop startup
 .. code-block:: bash
 
    cd ~/.config/autostart
-   touch backupmysytemusb2usb.desktop
+   touch backupmysystemusb2usb.desktop
    chmod 744
-   vi backupmysytemusb2usb.desktop
+   vi backupmysystemusb2usb.desktop
 
 And in your editor enter
 
@@ -144,4 +144,4 @@ To install the latest developpement version run the following command:
 
 .. code-block:: bash
 
-   git clone https://github.com/stephaneworkspace/backupmystemusb2usb
+   git clone https://github.com/stephaneworkspace/backupmysystemusb2usb
