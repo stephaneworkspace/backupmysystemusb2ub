@@ -46,7 +46,7 @@ For the deamon, write a *run.py* for running by user root with chmod 700
    #!/usr/bin/env python3
    import sys
    import yaml
-   from backupmystemusb2usb.usb2usb import usb2usb
+   from backupmysystemusb2usb.usb2usb import usb2usb
    try:
       u2u = usb2usb(sys.argv[1])
       u2u.backup()
