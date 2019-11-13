@@ -26,7 +26,7 @@ setup(
     version='0.0.12',
     install_requires=(read_requirements()),
     description='Backup a usb key to another usb key with the same space disk',
-    long_description=(read('README.rst') + '\\n\\n'),
+    long_description=(read('README.rst')),
     url='https://github.com/stephaneworkspace/backupmysystemusb2usb.git',
     author='Stéphane Bressani',
     author_email='s.bressani@bluewin.ch',
