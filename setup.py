@@ -1,6 +1,6 @@
 """
-    This software is a part of backupmysystemusb2usb and its functionality is to
-    backup one usb key to another usb with the same space disk
+    This software is a part of backupmysystemusb2usb and its functionality is
+    to backup one usb key to another usb with the same space disk
     Author: Stéphane Bressani <s.bressani@bluewin.ch>
 """
 import os
@@ -31,7 +31,7 @@ GNU = 'GNU Lesser General Public License v3 or later (LGPLv3+)'
 
 setup(
     name='backupmysystemusb2usb',
-    version='0.0.14',
+    version='0.0.15',
     install_requires=parse_requirements('requirements.txt'),
     description='Backup a usb key to another usb key with the same space disk',
     long_description=(read('README.rst')),
