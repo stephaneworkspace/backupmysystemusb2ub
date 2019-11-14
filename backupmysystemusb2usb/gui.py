@@ -7,6 +7,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GLib, GObject, Gio, Polkit  # noqa: E402
 import os  # noqa: E402
+from subprocess import Popen, CalledProcessError  # noqa: E402
 from . import const  # noqa: E402
 
 GUI_TITLE = const.GUI_TITLE
@@ -30,6 +31,22 @@ def on_tensec_timeout(loop):
     return False
 
 
+def cmd_root():
+    """
+    sudo killall -9 dd
+    """
+    global KILLALLOUTPUT
+    try:
+        cmd_list = ['killall', '-9', 'dd']
+        cmd = Popen(cmd_list)
+        cmd.wait()
+        KILLALLOUTPUT = cmd.communicate()[0]
+        print(KILLALLOUTPUT)
+    except CalledProcessError as err:
+        print(const.ERR_CMD % ('sudo killall -9 dd'))
+        print(err)
+
+
 def check_authorization_cb(authority, res, loop):
     """
     Sudo prompt
@@ -38,6 +55,7 @@ def check_authorization_cb(authority, res, loop):
         result = authority.check_authorization_finish(res)
         if result.get_is_authorized():
             print("Authorized")
+            cmd_root()
         elif result.get_is_challenge():
             print("Challenge")
         else:
@@ -53,8 +71,8 @@ def check_authorization_cb(authority, res, loop):
 class LogWindow(Gtk.Window):
     def __init__(self, log_file, desktop):
         self.log_file = log_file
+        self.desktop = desktop
         self.log_list = self.__read_log_file()
-
         self.window = Gtk.Window.__init__(self, title=GUI_TITLE)
         self.set_border_width(10)
 
