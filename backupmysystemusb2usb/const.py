@@ -54,3 +54,10 @@ TTY_U_1 = 'Copy disk to disk. Ctrl + c to cancel'
 TTY_U_2 = 'If you cancel:'
 TTY_U_3 = 'I recommand to run "sudo killall -9 dd" to stop the process running'
 TTY_U_4 = 'Or re-run with the variable in config.yml "Kill_dd: True"'
+
+GUI_TITLE = 'Backup my system usb to usb'
+GUI_HBOX_SPACING = 5
+GUI_BUTTON_CANCEL = 'Cancel operation [Ctrl + c]'
+GUI_BUTTON_QUIT = 'Quit [q]'
+GUI_FILE_NOT_FOUND = 'File not found: %s'
+GUI_FILE_NONE = 'File is None: %s'

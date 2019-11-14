@@ -6,12 +6,14 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GLib  # noqa: E402
+from . import const  # noqa: E402
 
-GUI_TITLE = 'Backup my system usb to usb'
+GUI_TITLE = const.GUI_TITLE
 GUI_HBOX_SPACING = 5
-GUI_BUTTON_CANCEL = 'Cancel operation [Ctrl + c]'
-
-# log_list = [('1'), ('2'), ('3')]
+GUI_BUTTON_CANCEL = const.GUI_BUTTON_CANCEL
+GUI_BUTTON_QUIT = const.GUI_BUTTON_QUIT
+GUI_FILE_NOT_FOUND = const.GUI_FILE_NOT_FOUND
+GUI_FILE_NONE = const.GUI_FILE_NONE
 
 """
 https://python-gtk-3-tutorial.readthedocs.io/en/latest/treeview.html#the-view
@@ -23,7 +25,7 @@ class LogWindow(Gtk.Window):
         self.log_file = log_file
         self.log_list = self.__read_log_file()
 
-        Gtk.Window.__init__(self, title=GUI_TITLE)
+        self.window = Gtk.Window.__init__(self, title=GUI_TITLE)
         self.set_border_width(10)
 
         # Setting up the self.grid in wich the element are to be positione
@@ -59,13 +61,15 @@ class LogWindow(Gtk.Window):
         button.connect('clicked', self.on_click_cancel)
         hbox.pack_start(button, True, True, 0)
 
+        button = Gtk.Button.new_with_label(GUI_BUTTON_QUIT)
+        button.connect('clicked', self.on_quit)
+        hbox.add(button)
+
         # Setting up the layout, putting the treeview in scrollwindow, and
         # the button in
         self.scrollable_treelist = Gtk.ScrolledWindow()
         self.scrollable_treelist.set_vexpand(True)
-        # self.scrollable_treelist.set_policy(Gtk.PolicyType.NEVER,
-        #                                    Gtk.PolicyType.AUTOMATIC)
-        self.grid.attach(self.scrollable_treelist, 0, 0, 8, 10)
+        self.grid.attach(self.scrollable_treelist, 0, 0, 3, 15)
         self.grid.attach_next_to(hbox, self.scrollable_treelist,
                                  Gtk.PositionType.BOTTOM, 1, 1)
         self.scrollable_treelist.add(self.treeview)
@@ -79,7 +83,13 @@ class LogWindow(Gtk.Window):
 
         self.show_all()
 
+    def filter_func(self, model, iter, data):
+        return True
+
     def on_timeout(self, user_data):
+        """
+        Event: read file every 10 sec
+        """
         new_log_list = self.__read_log_file()
         if not new_log_list == self.log_list:
             self.log_list = new_log_list
@@ -89,16 +99,17 @@ class LogWindow(Gtk.Window):
                 self.__scroll_bottom()
         return True
 
-    def __scroll_bottom(self):
-        self.treeview.scroll_to_cell(len(self.log_list) - 1, column=None,
-                                     use_align=True, row_align=0.0,
-                                     col_align=0.0)
-
     def on_click_cancel(self, button):
         """
         Cancel execution
         """
         self.__cancel_execution()
+
+    def on_quit(self, button):
+        """
+        Quit execution
+        """
+        self.__quit_execution()
 
     def on_key_release(self, widget, ev, data=None):
         """
@@ -108,10 +119,18 @@ class LogWindow(Gtk.Window):
             self.__cancel_execution()
         if ev.keyval in [Gdk.KEY_Control_R, Gdk.KEY_c]:
             self.__cancel_execution()
+        if ev.keyval in Gdk.KEY_q:
+            self.__quit_execution()
 
     def __cancel_execution(self):
         """
         Cancel execution
+        """
+        Gtk.main_quit()
+
+    def __quit_execution(self):
+        """
+        Exit
         """
         Gtk.main_quit()
 
@@ -124,19 +143,21 @@ class LogWindow(Gtk.Window):
             read_file = []
             lines = open_fd.readlines()
             if lines is None:
-                read_file = [('File is None %s' % (self.log_file))]
+                read_file = [(GUI_FILE_NONE % (self.log_file))]
             else:
                 for l in lines:
                     read_file.append((l.rstrip()))
             return read_file
             open_fd.close()
         except FileNotFoundError:
-            return [('File not found %s' % (self.log_file))]
+            return [(GUI_FILE_NOT_FOUND % (self.log_file))]
         except IOError as err:
             return [(err)]
 
-    def filter_func(self, model, iter, data):
-        return True
+    def __scroll_bottom(self):
+        self.treeview.scroll_to_cell(len(self.log_list) - 1, column=None,
+                                     use_align=True, row_align=0.0,
+                                     col_align=0.0)
 
 
 class gui:
