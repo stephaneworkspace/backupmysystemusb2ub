@@ -8,12 +8,13 @@ PARTITION = 'partiton'
 LABEL = 'label'
 UUID = 'UUID'
 
+SERVICE = 'backupmysystemusb2usb'
+
 YML_UUID_1_MASTER = 'UUID_1_Master'
 YML_UUID_1_SLAVE = 'UUID_1_Slave'
 YML_TEMP_IMG = 'Temp_img'
 YML_TEMP_LOG = 'Temp_log'
 YML_KILL_DD = 'Kill_dd'
-YML_DESKTOP = 'Desktop_sudo_prompt'
 
 YYYYMMDDHHMMSS = 'YYYYMMddHHMMSS'
 
@@ -58,7 +59,7 @@ TTY_U_4 = 'Or re-run with the variable in config.yml "Kill_dd: True"'
 
 GUI_TITLE = 'Backup my system usb to usb'
 GUI_HBOX_SPACING = 5
-GUI_BUTTON_CANCEL = 'Cancel operation [Ctrl + c]'
-GUI_BUTTON_QUIT = 'Quit [q]'
+GUI_BUTTON_CANCEL = 'Cancel operation [F10]'
+GUI_BUTTON_QUIT = 'Quit [Ctrl + c]'
 GUI_FILE_NOT_FOUND = 'File not found: %s'
 GUI_FILE_NONE = 'File is None: %s'

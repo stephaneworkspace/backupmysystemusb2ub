@@ -109,5 +109,5 @@ class usb2usb:
         Run gui for non root user
         """
         g = gui(self.bs.data[const.YML_TEMP_LOG],
-                self.bs.data[const.YML_DESKTOP])
+                const.SERVICE)
         g.run()

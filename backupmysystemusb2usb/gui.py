@@ -5,8 +5,7 @@
 """
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, GLib, GObject, Gio, Polkit  # noqa: E402
-import os  # noqa: E402
+from gi.repository import Gtk, Gdk, GLib  # noqa: E402
 from subprocess import Popen, CalledProcessError  # noqa: E402
 from . import const  # noqa: E402
 
@@ -22,56 +21,10 @@ https://python-gtk-3-tutorial.readthedocs.io/en/latest/treeview.html#the-view
 """
 
 
-def on_tensec_timeout(loop):
-    """
-    Timeout auth
-    """
-    print("Ten seconds have passed. Now exiting.")
-    loop.quit()
-    return False
-
-
-def cmd_root():
-    """
-    sudo killall -9 dd
-    """
-    global KILLALLOUTPUT
-    try:
-        cmd_list = ['killall', '-9', 'dd']
-        cmd = Popen(cmd_list)
-        cmd.wait()
-        KILLALLOUTPUT = cmd.communicate()[0]
-        print(KILLALLOUTPUT)
-    except CalledProcessError as err:
-        print(const.ERR_CMD % ('sudo killall -9 dd'))
-        print(err)
-
-
-def check_authorization_cb(authority, res, loop):
-    """
-    Sudo prompt
-    """
-    try:
-        result = authority.check_authorization_finish(res)
-        if result.get_is_authorized():
-            print("Authorized")
-            cmd_root()
-        elif result.get_is_challenge():
-            print("Challenge")
-        else:
-            print("Not authorized")
-    except GObject.GError as error:
-        print("Error checking authorization: %s" % error.message)
-    print("Authorization check has been cancelled "
-          "and the dialog should now be hidden.\n"
-          "This process will exit in ten seconds.")
-    GObject.timeout_add(10000, on_tensec_timeout, loop)
-
-
 class LogWindow(Gtk.Window):
-    def __init__(self, log_file, desktop):
+    def __init__(self, log_file, service):
         self.log_file = log_file
-        self.desktop = desktop
+        self.service = service
         self.log_list = self.__read_log_file()
         self.window = Gtk.Window.__init__(self, title=GUI_TITLE)
         self.set_border_width(10)
@@ -134,25 +87,6 @@ class LogWindow(Gtk.Window):
     def filter_func(self, model, iter, data):
         return True
 
-    def check_authorization_cb(authority, res, loop):
-        """
-        Sudo prompt
-        """
-        try:
-            result = authority.check_authorization_finish(res)
-            if result.get_is_authorized():
-                print("Authorized")
-            elif result.get_is_challenge():
-                print("Challenge")
-            else:
-                print("Not authorized")
-        except GObject.GError as error:
-            print("Error checking authorization: %s" % error.message)
-        print("Authorization check has been cancelled "
-              "and the dialog should now be hidden.\n"
-              "This process will exit in ten seconds.")
-        GObject.timeout_add(10000, on_tensec_timeout, loop)
-
     def on_timeout(self, user_data):
         """
         Event: read file every 10 sec
@@ -170,20 +104,7 @@ class LogWindow(Gtk.Window):
         """
         Cancel execution
         """
-        mainloop = GObject.MainLoop()
-        authority = Polkit.Authority.get()
-        subject = Polkit.UnixProcess.new(os.getppid())
-
-        cancellable = Gio.Cancellable()
-
-        ALLOW = Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION
-        authority.check_authorization(subject,
-                                      self.desktop, None,
-                                      ALLOW, cancellable,
-                                      check_authorization_cb,
-                                      mainloop)
-
-        mainloop.run()
+        self.__cancel_execution()
 
     def on_quit(self, button):
         """
@@ -196,17 +117,17 @@ class LogWindow(Gtk.Window):
         Key release
         """
         if ev.keyval in [Gdk.KEY_Control_L, Gdk.KEY_c]:
-            self.__cancel_execution()
-        if ev.keyval in [Gdk.KEY_Control_R, Gdk.KEY_c]:
-            self.__cancel_execution()
-        if ev.keyval in [Gdk.KEY_q]:
             self.__quit_execution()
+        if ev.keyval in [Gdk.KEY_Control_R, Gdk.KEY_c]:
+            self.__quit_execution()
+        if ev.keyval in [Gdk.KEY_F10]:
+            self.__cancel_execution()
 
     def __cancel_execution(self):
         """
         Cancel execution
         """
-        Gtk.main_quit()
+        self.__cmd_root()
 
     def __quit_execution(self):
         """
@@ -239,17 +160,40 @@ class LogWindow(Gtk.Window):
                                      use_align=True, row_align=0.0,
                                      col_align=0.0)
 
+    def __cmd_root(self):
+        """
+        systemctl stop self.service
+        killall -9 dd
+        """
+        global KILLSERVICE
+        try:
+            cmd_list = ['systemctl', 'stop', self.service]
+            cmd = Popen(cmd_list)
+            KILLSERVICE = cmd.communicate()[0]
+            print(KILLSERVICE)
+        except CalledProcessError:
+            print(const.ERR_CMD % ('systemctl stop' + self.service))
+        global KILLALLOUTPUT
+        try:
+            cmd_list = ['killall', '-9', 'dd']
+            cmd = Popen(cmd_list)
+            cmd.wait()
+            KILLALLOUTPUT = cmd.communicate()[0]
+            print(KILLALLOUTPUT)
+        except CalledProcessError:
+            print(const.ERR_CMD % ('sudo killall -9 dd'))
+
 
 class gui:
-    def __init__(self, log_file, desktop):
+    def __init__(self, log_file, service):
         self.log_file = log_file
-        self.desktop = desktop
+        self.service = service
 
     def run(self):
         """
         Run gui
         """
-        win = LogWindow(self.log_file, self.desktop)
+        win = LogWindow(self.log_file, self.service)
         win.connect('destroy', Gtk.main_quit)
         win.show_all()
         Gtk.main()
