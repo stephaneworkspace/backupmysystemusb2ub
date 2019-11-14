@@ -13,6 +13,7 @@ YML_UUID_1_SLAVE = 'UUID_1_Slave'
 YML_TEMP_IMG = 'Temp_img'
 YML_TEMP_LOG = 'Temp_log'
 YML_KILL_DD = 'Kill_dd'
+YML_DESKTOP = 'Desktop_sudo_prompt'
 
 YYYYMMDDHHMMSS = 'YYYYMMddHHMMSS'
 

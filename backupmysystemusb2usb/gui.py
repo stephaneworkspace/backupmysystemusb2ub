@@ -51,7 +51,7 @@ def check_authorization_cb(authority, res, loop):
 
 
 class LogWindow(Gtk.Window):
-    def __init__(self, log_file):
+    def __init__(self, log_file, desktop):
         self.log_file = log_file
         self.log_list = self.__read_log_file()
 
@@ -160,7 +160,7 @@ class LogWindow(Gtk.Window):
 
         ALLOW = Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION
         authority.check_authorization(subject,
-                                      'org.freedesktop.policykit.exec', None,
+                                      self.desktop, None,
                                       ALLOW, cancellable,
                                       check_authorization_cb,
                                       mainloop)
@@ -223,14 +223,15 @@ class LogWindow(Gtk.Window):
 
 
 class gui:
-    def __init__(self, log_file):
+    def __init__(self, log_file, desktop):
         self.log_file = log_file
+        self.desktop = desktop
 
     def run(self):
         """
         Run gui
         """
-        win = LogWindow(self.log_file)
+        win = LogWindow(self.log_file, self.desktop)
         win.connect('destroy', Gtk.main_quit)
         win.show_all()
         Gtk.main()
