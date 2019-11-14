@@ -15,7 +15,7 @@ To install *backupmystemusb2usb* package run the following command:
    sudo apt-get install libyaml-dev python3-gi
    sudo -H pip3 install backupmystemusb2usb
 
-You have to create a config.yml file
+You have to create a config.yml file (you can saved it into your ~/.local/share/backupmysystemusb2usb directory)
 
 .. code-block:: bash
    

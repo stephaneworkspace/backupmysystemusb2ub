@@ -17,7 +17,7 @@ GNU = 'GNU Lesser General Public License v3 or later (LGPLv3+)'
 
 setup(
     name='backupmysystemusb2usb',
-    version='0.0.16',
+    version='1.0.16',
     description='Backup a usb key to another usb key with the same space disk',
     long_description=(read('README.rst')),
     url='https://github.com/stephaneworkspace/backupmysystemusb2usb.git',
@@ -32,7 +32,7 @@ setup(
     python_requires='>=3.7',
     zip_safe=False,
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: No Input/Output (Daemon)',
         'Environment :: X11 Applications :: GTK',
         'Intended Audience :: Developers',
