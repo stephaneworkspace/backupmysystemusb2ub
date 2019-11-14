@@ -5,7 +5,8 @@
 """
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, GLib  # noqa: E402
+from gi.repository import Gtk, Gdk, GLib, GObject, Gio, Polkit  # noqa: E402
+import os  # noqa: E402
 from . import const  # noqa: E402
 
 GUI_TITLE = const.GUI_TITLE
@@ -18,6 +19,35 @@ GUI_FILE_NONE = const.GUI_FILE_NONE
 """
 https://python-gtk-3-tutorial.readthedocs.io/en/latest/treeview.html#the-view
 """
+
+
+def on_tensec_timeout(loop):
+    """
+    Timeout auth
+    """
+    print("Ten seconds have passed. Now exiting.")
+    loop.quit()
+    return False
+
+
+def check_authorization_cb(authority, res, loop):
+    """
+    Sudo prompt
+    """
+    try:
+        result = authority.check_authorization_finish(res)
+        if result.get_is_authorized():
+            print("Authorized")
+        elif result.get_is_challenge():
+            print("Challenge")
+        else:
+            print("Not authorized")
+    except GObject.GError as error:
+        print("Error checking authorization: %s" % error.message)
+    print("Authorization check has been cancelled "
+          "and the dialog should now be hidden.\n"
+          "This process will exit in ten seconds.")
+    GObject.timeout_add(10000, on_tensec_timeout, loop)
 
 
 class LogWindow(Gtk.Window):
@@ -86,6 +116,25 @@ class LogWindow(Gtk.Window):
     def filter_func(self, model, iter, data):
         return True
 
+    def check_authorization_cb(authority, res, loop):
+        """
+        Sudo prompt
+        """
+        try:
+            result = authority.check_authorization_finish(res)
+            if result.get_is_authorized():
+                print("Authorized")
+            elif result.get_is_challenge():
+                print("Challenge")
+            else:
+                print("Not authorized")
+        except GObject.GError as error:
+            print("Error checking authorization: %s" % error.message)
+        print("Authorization check has been cancelled "
+              "and the dialog should now be hidden.\n"
+              "This process will exit in ten seconds.")
+        GObject.timeout_add(10000, on_tensec_timeout, loop)
+
     def on_timeout(self, user_data):
         """
         Event: read file every 10 sec
@@ -103,7 +152,20 @@ class LogWindow(Gtk.Window):
         """
         Cancel execution
         """
-        self.__cancel_execution()
+        mainloop = GObject.MainLoop()
+        authority = Polkit.Authority.get()
+        subject = Polkit.UnixProcess.new(os.getppid())
+
+        cancellable = Gio.Cancellable()
+
+        ALLOW = Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION
+        authority.check_authorization(subject,
+                                      'org.freedesktop.policykit.exec', None,
+                                      ALLOW, cancellable,
+                                      check_authorization_cb,
+                                      mainloop)
+
+        mainloop.run()
 
     def on_quit(self, button):
         """
@@ -119,7 +181,7 @@ class LogWindow(Gtk.Window):
             self.__cancel_execution()
         if ev.keyval in [Gdk.KEY_Control_R, Gdk.KEY_c]:
             self.__cancel_execution()
-        if ev.keyval in Gdk.KEY_q:
+        if ev.keyval in [Gdk.KEY_q]:
             self.__quit_execution()
 
     def __cancel_execution(self):
