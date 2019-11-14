@@ -5,13 +5,14 @@
 """
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk  # noqa: E402
+from gi.repository import Gtk, Gdk, GLib  # noqa: E402
 
 GUI_TITLE = 'Backup my system usb to usb'
 GUI_HBOX_SPACING = 5
 GUI_BUTTON_CANCEL = 'Cancel operation [Ctrl + c]'
 
-log_list = [('1'), ('2'), ('3')]
+# log_list = [('1'), ('2'), ('3')]
+
 """
 https://python-gtk-3-tutorial.readthedocs.io/en/latest/treeview.html#the-view
 """
@@ -20,7 +21,7 @@ https://python-gtk-3-tutorial.readthedocs.io/en/latest/treeview.html#the-view
 class LogWindow(Gtk.Window):
     def __init__(self, log_file):
         self.log_file = log_file
-        """log_list = [('blabla'), ('2'), (self.log_file)]"""
+        self.log_list = self.__read_log_file()
 
         Gtk.Window.__init__(self, title=GUI_TITLE)
         self.set_border_width(10)
@@ -33,9 +34,11 @@ class LogWindow(Gtk.Window):
 
         # Creating the ListStore model
         self.log_list_liststore = Gtk.ListStore(str)
-        for l in log_list:
-            self.log_list_liststore.append(list(l))
+        for l in self.log_list:
+            # self.log_list_liststore.append(list(l))
+            self.log_list_liststore.append([l])
         self.current_filter = None
+
         # Creating the treeview, making it use the filter as a model,
         # and adding the columns
         self.filter = self.log_list_liststore.filter_new()
@@ -60,14 +63,36 @@ class LogWindow(Gtk.Window):
         # the button in
         self.scrollable_treelist = Gtk.ScrolledWindow()
         self.scrollable_treelist.set_vexpand(True)
+        # self.scrollable_treelist.set_policy(Gtk.PolicyType.NEVER,
+        #                                    Gtk.PolicyType.AUTOMATIC)
         self.grid.attach(self.scrollable_treelist, 0, 0, 8, 10)
         self.grid.attach_next_to(hbox, self.scrollable_treelist,
                                  Gtk.PositionType.BOTTOM, 1, 1)
         self.scrollable_treelist.add(self.treeview)
 
+        # Scroll at bottom
+        self.__scroll_bottom()
+
+        # Events
         self.grid.connect('key-release-event', self.on_key_release)
+        self.timeout_id = GLib.timeout_add(1000, self.on_timeout, None)
 
         self.show_all()
+
+    def on_timeout(self, user_data):
+        new_log_list = self.__read_log_file()
+        if not new_log_list == self.log_list:
+            self.log_list = new_log_list
+            self.log_list_liststore.clear()
+            for l in self.log_list:
+                self.log_list_liststore.append([l])
+                self.__scroll_bottom()
+        return True
+
+    def __scroll_bottom(self):
+        self.treeview.scroll_to_cell(len(self.log_list) - 1, column=None,
+                                     use_align=True, row_align=0.0,
+                                     col_align=0.0)
 
     def on_click_cancel(self, button):
         """
@@ -89,6 +114,26 @@ class LogWindow(Gtk.Window):
         Cancel execution
         """
         Gtk.main_quit()
+
+    def __read_log_file(self):
+        """
+        Read the log file
+        """
+        try:
+            open_fd = open(self.log_file, 'r')
+            read_file = []
+            lines = open_fd.readlines()
+            if lines is None:
+                read_file = [('File is None %s' % (self.log_file))]
+            else:
+                for l in lines:
+                    read_file.append((l.rstrip()))
+            return read_file
+            open_fd.close()
+        except FileNotFoundError:
+            return [('File not found %s' % (self.log_file))]
+        except IOError as err:
+            return [(err)]
 
     def filter_func(self, model, iter, data):
         return True
