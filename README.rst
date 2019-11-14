@@ -62,7 +62,9 @@ You can create a service systemd if you planed to backup your usb key evry day i
    # write your cron
    sudo service cron reload
 
-Now for create a daemon in startup (without console)
+Now for create a daemon in startup (without console).
+
+Use this name "backupmysystemusb2usb" because in source const.py this file is a const for GUI progress for non-root user
 
 .. code-block:: bash
 
@@ -105,15 +107,25 @@ Check the log (no detail just the command like dd)
 
 You can go to check your ouput log file configured by config.yml
    
-Now we have to create the shell return for no-root user
+Now we have to create the shell return for non-root user gui.py
+
+.. code-block:: bash
+   
+   touch gui.py
+   chmod 700 gui.py
+   vi gui.py
+  
+And write in file
 
 .. code-block:: bash
 
-   WORK IN PROGRESS FOR THE X11 GTK INTERFACE...
+   #!/usr/bin/env python3
+   import yaml
+   from backupmysystemusb2usb.usb2usb import usb2usb
+   u2u = usb2usb('/path/to/your/config.yml')
+   u2u.gui()
 
-You can have the display of progress with run_user.py and run_user.sh in my github (modifiy the path for config.yml)
-
-You can create a Gnome desktop startup
+You can create a autostart Gnome desktop startup
 
 .. code-block:: bash
 
@@ -129,7 +141,7 @@ And in your editor enter
    [Desktop Entry]
    Name=Backup my system usb to usb
    Comment=Copy disk with the same space
-   Exec=/your/working/path/run_user.sh
+   Exec=/your/working/path/gui.py
    Icon=org.gnome.Terminal
    Path=/your/working/path/
    Terminal=true
