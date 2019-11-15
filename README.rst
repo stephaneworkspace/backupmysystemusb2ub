@@ -157,3 +157,14 @@ To install the latest developpement version run the following command:
 .. code-block:: bash
 
    git clone https://github.com/stephaneworkspace/backupmysystemusb2usb
+
+Versions
+--------
+1.02
+ - Fix bug rename label usb key
+
+1.0.1
+ - Add gui Gtk
+
+0.0.16
+ - Alpha version
