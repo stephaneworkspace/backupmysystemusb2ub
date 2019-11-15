@@ -39,7 +39,7 @@ TTY_BLKID_DEVICE_LIST_MATCH = 'Device(s) list match with config (count = %s)'
 TTY_DD_COPY_SUCCESSFULL = 'Copy successfull !'
 TTY_DD_CMTI = 'Copy master to img (128GB =~ 50 min):'
 TTY_DD_CITS = 'Copy img to slave (128GB =~ 50min):'
-TTY_E2LABEL_WTSLTM = 'New timestamp upper than slave for master "%s"'
+TTY_E2LABEL_WTSLTM = 'New timestamp upper than slave for master %s'
 TTY_UMOUNT = 'Umount %s and %s:'
 
 TTY_INTRO = 'Backup disk to another one'

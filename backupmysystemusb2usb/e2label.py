@@ -23,8 +23,7 @@ class e2label:
         global DDOUTPUT
         now = datetime.now()
         dt_string = now.strftime('"%Y%m%d%H%M%S"')
-        self.log.add_log(const.TTY_E2LABEL_WTSLTM % (self.b.master[DEVICE],
-                                                     dt_string))
+        self.log.add_log(const.TTY_E2LABEL_WTSLTM % (self.b.master[DEVICE]))
         x = 'sudo e2label %s1 "%s"'
         try:
             cmd_list = ['sudo', 'e2label', self.b.master[DEVICE],
