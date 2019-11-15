@@ -1,21 +1,21 @@
 backupmystemusb2usb: Backup my system usb to usb
 ================================================
 
-backupmystemusb2usb is a GPLv3-liscensed Python package for copy usb key.
+backupmystemusb2usb is a GPLv3-liscensed Python package to copy usb key.
 
 Its runs on Python 3.7 and has a dependency for yaml, and another one for the gui.
 
 Installation without the source
 -------------------------------
 
-To install *backupmystemusb2usb* package run the following command:
+To install *backupmysytemusb2usb* package run the following command:
 
 .. code-block:: bash
 
    sudo apt-get install libyaml-dev python3-gi
    sudo -H pip3 install backupmystemusb2usb
 
-You have to create a config.yml file (you can saved it into your ~/.local/share/backupmysystemusb2usb directory)
+You have to create a config.yml file (you can save it into your ~/.local/share/backupmysystemusb2usb directory)
 
 .. code-block:: bash
    
@@ -31,7 +31,7 @@ UUID list
    
    sudo blkid
 
-Find your device and for change the label. If the device master UUID is the same as the slave UUID (if you cancel in copy img to slave), you have to put a date upper on master than slave
+Find your device and to change the label if the device master UUID is the same as the slave UUID (for exemple: if you cancel in copying temporary img to disk slave), you have to put a date upper on master than slave
 
 *Warning* UUID is not Label !
 
@@ -53,7 +53,7 @@ For the deamon, write a *run.py* for running by user root with chmod 700
    except yaml.YAMLError:
       exit()
 
-You can create a service systemd if you planed to backup your usb key evry day in the morning. You can wakeonlan from a raspberrypi or other technique
+You can create a service systemd if you planed to backup your usb key every day in the morning. You can wakeonlan from a raspberrypi or with another technic
 
 .. code-block:: bash
 
@@ -62,9 +62,9 @@ You can create a service systemd if you planed to backup your usb key evry day i
    # write your cron
    sudo service cron reload
 
-Now for create a daemon in startup (without console).
+Now to create a daemon in startup (without console).
 
-Use this name "backupmysystemusb2usb" because in source const.py this file is a const for GUI progress for non-root user
+Use this name "backupmysystemusb2usb" because in source const.py this file is a constant for GUI progress for non-root user
 
 .. code-block:: bash
 
@@ -99,13 +99,13 @@ If you will test now the service :
 
    sudo systemctl start backupmysystemusb2usb
 
-Check the log (no detail just the command like dd)
+Check the log (the last 20 messages)
 
 .. code-block:: bash
 
    sudo journalctl --unit backupmysystemusb2usb -n 20
 
-You can go to check your ouput log file configured by config.yml
+You can go to check your output log file configured by config.yml
    
 Now we have to create the shell return for non-root user gui.py
 
@@ -152,7 +152,7 @@ And in your editor enter
 Installation from source
 ------------------------
 
-To install the latest developpement version run the following command:
+To install the latest developement version run the following command:
 
 .. code-block:: bash
 
@@ -161,7 +161,7 @@ To install the latest developpement version run the following command:
 Versions
 --------
 1.02
- - Fix bug rename label usb key
+ - Fix bug and rename label usb key
 
 1.0.1
  - Add gui Gtk
