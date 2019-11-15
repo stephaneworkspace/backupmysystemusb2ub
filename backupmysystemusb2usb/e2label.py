@@ -12,8 +12,8 @@ DEVICE = const.DEVICE
 
 
 class e2label:
-    def __init__(self, blkid, log):
-        self.blkid = blkid
+    def __init__(self, dict_blkid, log):
+        self.b = dict_blkid
         self.log = log
 
     def write_time_stamp_label_to_master(self):
@@ -23,11 +23,11 @@ class e2label:
         global DDOUTPUT
         now = datetime.now()
         dt_string = now.strftime('"%Y%m%d%H%M%S"')
-        self.log.add_log(const.TTY_E2LABEL_WTSLTM % (self.blkid.master[DEVICE],
+        self.log.add_log(const.TTY_E2LABEL_WTSLTM % (self.b.master[DEVICE],
                                                      dt_string))
         x = 'sudo e2label %s1 "%s"'
         try:
-            cmd_list = ['sudo', 'e2label', self.blkid.master[DEVICE],
+            cmd_list = ['sudo', 'e2label', self.b.master[DEVICE],
                         dt_string]
             cmd = Popen(cmd_list)
             cmd.wait()
@@ -35,5 +35,5 @@ class e2label:
             self.log.add_log(DDOUTPUT)
         except CalledProcessError:
             self.log.add_log(const.ERR_E2LABEL_WTSLTM)
-            xx = x % (self.blkid.master[DEVICE], dt_string)
+            xx = x % (self.b.master[DEVICE], dt_string)
             self.log.add_log(const.ERR_CMD % (xx))

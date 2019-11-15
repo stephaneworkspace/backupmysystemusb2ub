@@ -3,10 +3,8 @@
 # backup one usb key to another usb with the same sapce disk
 # Author: Stéphane Bressani <s.bressani@bluewin.ch>
 #
-# This is the config file. After the first operation this file is written and
-# the UUID 1 Master and Slave is the same. (Because is a total copy of the usb
-# key). A label with a timestamp is written to recognized the master and the
-# slave.
+# This is the config file. A label with a timestamp is written to recognized 
+# the master and the slave.
 #
 # For get the info for the first time, write in your shell: "sudo blkid" 
 # and find your two usb keys
