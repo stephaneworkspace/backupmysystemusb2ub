@@ -76,7 +76,7 @@ class usb2usb:
         try:
             # Umount drivers
             umount(b, log)
-            if self.s.data[const.YML_KILL_DD]:
+            if self.bs.data[const.YML_KILL_DD]:
                 # Kill all dd on the system
                 k = kill_dd(log)
                 k.run()

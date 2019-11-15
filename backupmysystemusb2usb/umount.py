@@ -10,8 +10,8 @@ DEVICE = const.DEVICE
 
 
 class umount:
-    def __init__(self, blkid, log):
-        self.blkid = blkid
+    def __init__(self, dict_blkid, log):
+        self.b = dict_blkid
         self.log = log
         self.__umount()
 
@@ -19,16 +19,16 @@ class umount:
         """
         Umount disks
         """
-        self.log.add_log(const.TTY_UMOUNT % (self.blkid.master[DEVICE],
-                                        self.blkid.slave[DEVICE]))
+        self.log.add_log(const.TTY_UMOUNT % (self.b.master[DEVICE],
+                                             self.b.slave[DEVICE]))
         x = 'sudo umount %s'
         try:
-            xx = x % (self.blkid.master[DEVICE])
-            cmd_list = ['sudo', 'umount', self.blkid.master[DEVICE]]
+            xx = x % (self.b.master[DEVICE])
+            cmd_list = ['sudo', 'umount', self.b.master[DEVICE]]
             cmd = Popen(cmd_list)
             cmd.wait()
-            xx = x % (self.blkid.slave[DEVICE])
-            cmd_list = ['sudo', 'umount', self.blkid.slave[DEVICE]]
+            xx = x % (self.b.slave[DEVICE])
+            cmd_list = ['sudo', 'umount', self.b.slave[DEVICE]]
             cmd = Popen(cmd_list)
             cmd.wait()
         except CalledProcessError:

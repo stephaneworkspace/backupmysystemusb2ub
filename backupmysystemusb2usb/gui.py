@@ -156,7 +156,7 @@ class LogWindow(Gtk.Window):
             return [(err)]
 
     def __scroll_bottom(self):
-        self.treeview.scroll_to_cell(len(self.log_list) - 1, column=None,
+        self.treeview.scroll_to_cell(len(self.log_list), column=None,
                                      use_align=True, row_align=0.0,
                                      col_align=0.0)
 
