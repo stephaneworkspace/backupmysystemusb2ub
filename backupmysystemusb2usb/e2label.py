@@ -26,7 +26,7 @@ class e2label:
         self.log.add_log(const.TTY_E2LABEL_WTSLTM % (self.b.master[DEVICE]))
         x = 'sudo e2label %s1 "%s"'
         try:
-            cmd_list = ['sudo', 'e2label', self.b.master[DEVICE],
+            cmd_list = ['sudo', 'e2label', self.b.master[DEVICE] + '1',
                         dt_string]
             cmd = Popen(cmd_list)
             cmd.wait()

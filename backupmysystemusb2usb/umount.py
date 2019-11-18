@@ -23,12 +23,15 @@ class umount:
                                              self.b.slave[DEVICE]))
         x = 'sudo umount %s'
         try:
+            # 18.11.2019
+            # This is crap... i have to do a forloop for all device to umout
+            # But i commit on git today a major bug fix of dd
             xx = x % (self.b.master[DEVICE])
-            cmd_list = ['sudo', 'umount', self.b.master[DEVICE]]
+            cmd_list = ['sudo', 'umount', self.b.master[DEVICE] + '1']
             cmd = Popen(cmd_list)
             cmd.wait()
             xx = x % (self.b.slave[DEVICE])
-            cmd_list = ['sudo', 'umount', self.b.slave[DEVICE]]
+            cmd_list = ['sudo', 'umount', self.b.slave[DEVICE] + '1']
             cmd = Popen(cmd_list)
             cmd.wait()
         except CalledProcessError:
