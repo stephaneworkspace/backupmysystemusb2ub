@@ -160,6 +160,9 @@ To install the latest developement version run the following command:
 
 Versions
 --------
+1.03
+ - Change license to Creative Commons
+
 1.02
  - Fix bug and rename label usb key
 

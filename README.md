@@ -167,6 +167,8 @@ git clone https://github.com/stephaneworkspace/backupmysystemusb2usb
 
 Versions
 --------
+1.03
+:   -   Change license to Creative Commons
 
 1.02
 :   -   Fix bug and rename label usb key
@@ -176,5 +178,3 @@ Versions
 
 0.0.16
 :   -   Alpha version
-
-

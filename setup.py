@@ -17,13 +17,13 @@ GNU = 'GNU Lesser General Public License v3 or later (LGPLv3+)'
 
 setup(
     name='backupmysystemusb2usb',
-    version='1.0.2',
+    version='1.0.3',
     description='Backup a usb key to another usb key with the same space disk',
     long_description=(read('README.rst')),
     url='https://github.com/stephaneworkspace/backupmysystemusb2usb.git',
     author='Stéphane Bressani',
     author_email='s.bressani@bluewin.ch',
-    license='GPLv3+',
+    license='cc0',
     packages=find_packages(include=['backupmysystemusb2usb',
                                     'backupmysystemusb2usb.*']),
     install_requires=[
