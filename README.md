@@ -1,7 +1,7 @@
 backupmystemusb2usb: Backup my system usb to usb
 ================================================
 
-backupmystemusb2usb is a GPLv3-liscensed Python package to copy usb key.
+backupmystemusb2usb is a Creative Commons Python package to copy usb key.
 
 Its runs on Python 3.7 and has a dependency for yaml, and another one
 for the gui.
@@ -167,6 +167,9 @@ git clone https://github.com/stephaneworkspace/backupmysystemusb2usb
 
 Versions
 --------
+1.04
+:   -   Change license to Creative Commons
+
 1.03
 :   -   Change license to Creative Commons
 
